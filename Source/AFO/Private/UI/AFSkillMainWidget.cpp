@@ -1,4 +1,4 @@
-// AFSkillMainWidget.h
+ï»¿// AFSkillMainWidget.h
 
 
 #include "UI/AFSkillMainWidget.h"
@@ -8,10 +8,10 @@ void UAFSkillMainWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    // 2. ½½·Ô À§Á¬µéÀ» ¹è¿­¿¡ ¼ø¼­´ë·Î ´ã½À´Ï´Ù.
+    // 2. ìŠ¬ë¡¯ ìœ„ì ¯ë“¤ì„ ë°°ì—´ì— ìˆœì„œëŒ€ë¡œ ë‹´ìŠµë‹ˆë‹¤.
     SlotArray.Empty();
 
-    // À¯È¿¼º °Ë»ç ÈÄ Ãß°¡ (isnotvalid ¹®Á¦¸¦ ¿©±â¼­ Ã¼Å© °¡´É)
+    // ìœ íš¨ì„± ê²€ì‚¬ í›„ ì¶”ê°€ (isnotvalid ë¬¸ì œë¥¼ ì—¬ê¸°ì„œ ì²´í¬ ê°€ëŠ¥)
     if (Slot_0) SlotArray.Add(Slot_0);
     if (Slot_1) SlotArray.Add(Slot_1);
     if (Slot_2) SlotArray.Add(Slot_2);
@@ -26,7 +26,7 @@ void UAFSkillMainWidget::NativeConstruct()
     {
         UAFSkillComponent* SkillComp = OwningPawn->FindComponentByClass<UAFSkillComponent>();
 
-        // ¸ğµç ½½·Ô À§Á¬µé¿¡°Ô ÄÄÆ÷³ÍÆ® ÁÖÀÔ (SlotQ, SlotE µî BindWidget µÈ º¯¼öµé)
+        // ëª¨ë“  ìŠ¬ë¡¯ ìœ„ì ¯ë“¤ì—ê²Œ ì»´í¬ë„ŒíŠ¸ ì£¼ì… (SlotQ, SlotE ë“± BindWidget ëœ ë³€ìˆ˜ë“¤)
         if (SkillComp)
         {
             if (Slot_0) Slot_0->SetSkillComponent(SkillComp);
@@ -34,14 +34,14 @@ void UAFSkillMainWidget::NativeConstruct()
             if (Slot_2) Slot_2->SetSkillComponent(SkillComp);
             if (Slot_3) Slot_3->SetSkillComponent(SkillComp);
             if (Slot_4) Slot_4->SetSkillComponent(SkillComp);
-            // ... ³ª¸ÓÁö ½½·Ôµéµµ µ¿ÀÏÇÏ°Ô
+            // ... ë‚˜ë¨¸ì§€ ìŠ¬ë¡¯ë“¤ë„ ë™ì¼í•˜ê²Œ
         }
     }
 }
 
 void UAFSkillMainWidget::UpdateSkillSlots(const TArray<FAFSkillInfo>& CharacterSkills, const TArray<FName>& SkillRowNames)
 {
-    // [¹æ¾î ÄÚµå] ¸¸¾à ¹è¿­ÀÌ ºñ¾îÀÖ´Ù¸é ¿©±â¼­ ÇÑ ¹ø ´õ ÃÊ±âÈ­ ½Ãµµ
+    // [ë°©ì–´ ì½”ë“œ] ë§Œì•½ ë°°ì—´ì´ ë¹„ì–´ìˆë‹¤ë©´ ì—¬ê¸°ì„œ í•œ ë²ˆ ë” ì´ˆê¸°í™” ì‹œë„
     if (SlotArray.Num() == 0)
     {
         if (Slot_0) SlotArray.Add(Slot_0);
@@ -59,7 +59,7 @@ void UAFSkillMainWidget::UpdateSkillSlots(const TArray<FAFSkillInfo>& CharacterS
         return;
     }
 
-    // Ä³¸¯ÅÍ µ¥ÀÌÅÍ¿Í ½½·Ô °³¼ö Áß ÀÛÀº °ª¸¸Å­ ·çÇÁ
+    // ìºë¦­í„° ë°ì´í„°ì™€ ìŠ¬ë¡¯ ê°œìˆ˜ ì¤‘ ì‘ì€ ê°’ë§Œí¼ ë£¨í”„
     int32 MaxLoop = FMath::Min3(SlotArray.Num(), CharacterSkills.Num(), SkillRowNames.Num());
     for (int32 i = 0; i < MaxLoop; ++i)
     {
@@ -75,7 +75,7 @@ void UAFSkillMainWidget::UpdateAllSlotsComponent(UAFSkillComponent* InSkillComp)
 {
     if (!InSkillComp) return;
 
-    // 'Slot' ´ë½Å 'SlotPtr' µîÀ¸·Î ÀÌ¸§À» º¯°æÇÏ¿© ¸â¹ö º¯¼ö¿ÍÀÇ Ãæµ¹À» ÇÇÇÕ´Ï´Ù.
+    // 'Slot' ëŒ€ì‹  'SlotPtr' ë“±ìœ¼ë¡œ ì´ë¦„ì„ ë³€ê²½í•˜ì—¬ ë©¤ë²„ ë³€ìˆ˜ì™€ì˜ ì¶©ëŒì„ í”¼í•©ë‹ˆë‹¤.
     for (UAFSkillSlotWidget* SlotPtr : SlotArray)
     {
         if (SlotPtr)

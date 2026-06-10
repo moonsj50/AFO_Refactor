@@ -1,4 +1,4 @@
-#include "Game/AFGameMode.h"
+ï»¿#include "Game/AFGameMode.h"
 #include "Game/AFGameState.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
@@ -36,13 +36,13 @@ void AAFGameMode::BeginPlay()
 
 
 
-	// 1. ¸ğµç ÇÃ·¹ÀÌ¾îÀÇ ÀÔ·ÂÀ» Ã³À½¿¡ ¸·À½
+	// 1. ëª¨ë“  í”Œë ˆì´ì–´ì˜ ì…ë ¥ì„ ì²˜ìŒì— ë§‰ìŒ
 	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
 	{
 		if (APlayerController* PC = It->Get())
 		{
 			PC->SetInputMode(FInputModeGameOnly());
-			// Ä³¸¯ÅÍ Á¶ÀÛ ±İÁö (Move µîÀ» ¸øÇÏ°Ô ÇÔ)
+			// ìºë¦­í„° ì¡°ì‘ ê¸ˆì§€ (Move ë“±ì„ ëª»í•˜ê²Œ í•¨)
 			if (APawn* P = PC->GetPawn())
 			{
 				P->DisableInput(PC);
@@ -66,7 +66,7 @@ void AAFGameMode::StartRound()
 		return;
 	}
 
-	// Ä³¸¯ÅÍ ¿òÁ÷ÀÌ±â °¡´É
+	// ìºë¦­í„° ì›€ì§ì´ê¸° ê°€ëŠ¥
 	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
 	{
 		if (APlayerController* PC = It->Get())
@@ -172,13 +172,13 @@ void AAFGameMode::ReportKill(AController* KillerController)
 		GS->TeamBlueKillScore++;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Kill ¡æ Team:%s | Red:%d / Blue:%d"),
+	UE_LOG(LogTemp, Warning, TEXT("Kill â†’ Team:%s | Red:%d / Blue:%d"),
 		(KillerTeam == 0) ? TEXT("RED") : TEXT("BLUE"),
 		GS->TeamRedKillScore,
 		GS->TeamBlueKillScore);
 }
 
-// ÀÓ½Ã·Î ±âÁ¸ ÇÔ¼ö ºñÈ°¼ºÈ­
+// ì„ì‹œë¡œ ê¸°ì¡´ í•¨ìˆ˜ ë¹„í™œì„±í™”
 
 AActor* AAFGameMode::ChoosePlayerStart_Implementation(AController* Player)
 {
@@ -229,33 +229,33 @@ void AAFGameMode::HandlePlayerDeath(AController* VictimController, AController* 
 		return;
 	}
 
-	// 1. ÇÇÇØÀÚ(Victim) Ã³¸®
+	// 1. í”¼í•´ì(Victim) ì²˜ë¦¬
 	VictimPS->IncrementDeathCount();
 	VictimPS->SetDead(true);
 
 	UE_LOG(LogTemp, Error, TEXT("[GAMEMODE] HandlePlayerDeath Called! Victim: %s, Killer: %s"),
 		*VictimController->GetName(), KillerController ? *KillerController->GetName() : TEXT("None"));
 
-	// [Ãß°¡] ÆÀ µ¥½º ½ºÄÚ¾î ¹İ¿µ
+	// [ì¶”ê°€] íŒ€ ë°ìŠ¤ ìŠ¤ì½”ì–´ ë°˜ì˜
 	if (AAFGameState* GS = GetWorld()->GetGameState<AAFGameState>())
 	{
 		
-		GS->AddTeamScore(VictimPS->GetTeamID(), false); // false´Â µ¥½º Ãß°¡
+		GS->AddTeamScore(VictimPS->GetTeamID(), false); // falseëŠ” ë°ìŠ¤ ì¶”ê°€
 	}
 
 	AAFPlayerState* KillerPS = KillerController ? KillerController->GetPlayerState<AAFPlayerState>() : nullptr;
 
-	// 2. Å³·¯(Killer) Ã³¸®
+	// 2. í‚¬ëŸ¬(Killer) ì²˜ë¦¬
 	if (KillerController && KillerController != VictimController)
 	{
 		if (KillerPS)
 		{
 			KillerPS->IncrementKillCount();
 
-			// [Ãß°¡] ÆÀ Å³ ½ºÄÚ¾î ¹İ¿µ
+			// [ì¶”ê°€] íŒ€ í‚¬ ìŠ¤ì½”ì–´ ë°˜ì˜
 			if (AAFGameState* GS = GetWorld()->GetGameState<AAFGameState>())
 			{
-				GS->AddTeamScore(KillerPS->GetTeamID(), true); // true´Â Å³ Ãß°¡
+				GS->AddTeamScore(KillerPS->GetTeamID(), true); // trueëŠ” í‚¬ ì¶”ê°€
 				UE_LOG(LogTemp, Warning, TEXT("[GAMEMODE] Requesting AddTeamScore for Team %d"), KillerPS->GetTeamID());
 			}
 		}
@@ -272,27 +272,27 @@ void AAFGameMode::HandlePlayerDeath(AController* VictimController, AController* 
 	// kill log
 	if (VictimPS)
 	{
-		// 1. ÀÌ¸§ ¹× »ö»ó Á¤º¸ ÁØºñ
+		// 1. ì´ë¦„ ë° ìƒ‰ìƒ ì •ë³´ ì¤€ë¹„
 		FString KillerName = KillerPS ? KillerPS->GetPlayerName() : TEXT("Environment");
 		FString VictimName = VictimPS->GetPlayerName();
 
-		// ÆÀ ID¿¡ µû¸¥ »ö»ó (0: Red, 1: Blue)
+		// íŒ€ IDì— ë”°ë¥¸ ìƒ‰ìƒ (0: Red, 1: Blue)
 		FLinearColor KillerColor = (KillerPS && KillerPS->GetTeamID() == 0) ? FLinearColor::Red : FLinearColor::Blue;
 		FLinearColor VictimColor = (VictimPS->GetTeamID() == 0) ? FLinearColor::Red : FLinearColor::Blue;
 
-		// ÀÚ»ì(Fall Death µî)ÀÏ °æ¿ì Killer¸¦ Environment³ª º»ÀÎ ÀÌ¸§À¸·Î Ã³¸®
+		// ìì‚´(Fall Death ë“±)ì¼ ê²½ìš° Killerë¥¼ Environmentë‚˜ ë³¸ì¸ ì´ë¦„ìœ¼ë¡œ ì²˜ë¦¬
 		if (KillerController == VictimController || KillerController == nullptr)
 		{
 			KillerName = TEXT("System");
 			KillerColor = FLinearColor::Gray;
 		}
 
-		// 2. ¸ğµç Á¢¼Ó ÁßÀÎ ÇÃ·¹ÀÌ¾î¿¡°Ô Å³ ·Î±× ºê·ÎµåÄ³½ºÆ®
+		// 2. ëª¨ë“  ì ‘ì† ì¤‘ì¸ í”Œë ˆì´ì–´ì—ê²Œ í‚¬ ë¡œê·¸ ë¸Œë¡œë“œìºìŠ¤íŠ¸
 		for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
 		{
 			if (AAFPlayerController* PC = Cast<AAFPlayerController>(It->Get()))
 			{
-				// °¢ Å¬¶óÀÌ¾ğÆ®ÀÇ RPC ÇÔ¼ö È£Ãâ!
+				// ê° í´ë¼ì´ì–¸íŠ¸ì˜ RPC í•¨ìˆ˜ í˜¸ì¶œ!
 				PC->Client_ShowKillLog(KillerName, KillerColor, VictimName, VictimColor);
 			}
 		}
@@ -301,14 +301,14 @@ void AAFGameMode::HandlePlayerDeath(AController* VictimController, AController* 
 
 
 
-	// ¸®½ºÆù À§Á¬ ¶ç¿ì±â
+	// ë¦¬ìŠ¤í° ìœ„ì ¯ ë„ìš°ê¸°
 	if (AAFPlayerController* PC = Cast<AAFPlayerController>(VictimController))
 	{
 		PC->Client_ClearRespawnWidget();
 		PC->Client_ShowRespawnWidget(RespawnDelay);
 	}
 
-	// 10ÃÊ ÈÄ ¸®½ºÆù
+	// 10ì´ˆ í›„ ë¦¬ìŠ¤í°
 	TWeakObjectPtr<AController> WeakVictim = VictimController;
 
 	FTimerHandle& Handle = RespawnTimers.FindOrAdd(WeakVictim);
@@ -328,7 +328,7 @@ void AAFGameMode::HandlePlayerDeath(AController* VictimController, AController* 
 
 				RestartPlayer(VC);
 
-				RespawnTimers.Remove(WeakVictim); // Á¤¸®
+				RespawnTimers.Remove(WeakVictim); // ì •ë¦¬
 			}),
 		RespawnDelay,
 		false
@@ -346,7 +346,7 @@ void AAFGameMode::EndRound()
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Round End ¡æ Red: %d / Blue: %d"),
+	UE_LOG(LogTemp, Warning, TEXT("Round End â†’ Red: %d / Blue: %d"),
 		GS->TeamRedKillScore,
 		GS->TeamBlueKillScore);
 
@@ -399,13 +399,13 @@ void AAFGameMode::HandleSeamlessTravelPlayer(AController*& C)
 		OldPawn->Destroy();
 	}
 
-	RestartPlayer(C); // ¿©±â¼­ À§ GetDefaultPawnClassForController°¡ Àû¿ëµÊ
+	RestartPlayer(C); // ì—¬ê¸°ì„œ ìœ„ GetDefaultPawnClassForControllerê°€ ì ìš©ë¨
 }
 
-//// Ä³¸¯ÅÍ ¼±ÅÃ È­¸é ±¸Çö Àü ÀÓ½Ã Ä³¸¯ÅÍ ¼³Á¤ ÇÔ¼ö
+//// ìºë¦­í„° ì„ íƒ í™”ë©´ êµ¬í˜„ ì „ ì„ì‹œ ìºë¦­í„° ì„¤ì • í•¨ìˆ˜
 //UClass* AAFGameMode::GetDefaultPawnClassForController_Implementation(AController* InController)
 //{
-//	// Á¢¼ÓÇÑ ¼ø¼­¿¡ µû¶ó Å¬·¡½º ¹èÁ¤
+//	// ì ‘ì†í•œ ìˆœì„œì— ë”°ë¼ í´ë˜ìŠ¤ ë°°ì •
 //	PlayerCount++;
 //
 //	UE_LOG(LogTemp, Warning, TEXT("Player Joined! Current Count: %d"), PlayerCount);
@@ -427,31 +427,31 @@ void AAFGameMode::HandleSeamlessTravelPlayer(AController*& C)
 //		return FourthCharacterClass;
 //	}
 //
-//	// 3¹øÂ° ÀÌÈÄ°Å³ª ¼³Á¤ÀÌ ¾È µÇ¾îÀÖÀ¸¸é ±âº» Pawn Å¬·¡½º »ç¿ë
+//	// 3ë²ˆì§¸ ì´í›„ê±°ë‚˜ ì„¤ì •ì´ ì•ˆ ë˜ì–´ìˆìœ¼ë©´ ê¸°ë³¸ Pawn í´ë˜ìŠ¤ ì‚¬ìš©
 //	return Super::GetDefaultPawnClassForController_Implementation(InController);
 //}
 //
 //
 //AActor* AAFGameMode::ChoosePlayerStart_Implementation(AController* Player)
 //{
-//	// 1. ¼­¹ö ±ÇÇÑ ¹× À¯È¿¼º °Ë»ç
+//	// 1. ì„œë²„ ê¶Œí•œ ë° ìœ íš¨ì„± ê²€ì‚¬
 //	if (!Player) return nullptr;
 //
-//	// 2. AFO ÇÃ·¹ÀÌ¾î »óÅÂ Á¤º¸ °¡Á®¿À±â
+//	// 2. AFO í”Œë ˆì´ì–´ ìƒíƒœ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 //	AAFPlayerState* PS = Player->GetPlayerState<AAFPlayerState>();
 //	if (PS)
 //	{
-//		// ÇöÀç ·Î±×¿¡ ÂïÈ÷°í ÀÖ´Â Á¤º¸¸¦ ±â¹İÀ¸·Î °¡Á®¿È
-//		int32 TargetTeam = PS->GetTeamID();     // 0 ¶Ç´Â 1
-//		int32 TargetIndex = PS->GetTeamIndex(); // 0 ¶Ç´Â 1
+//		// í˜„ì¬ ë¡œê·¸ì— ì°íˆê³  ìˆëŠ” ì •ë³´ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ê°€ì ¸ì˜´
+//		int32 TargetTeam = PS->GetTeamID();     // 0 ë˜ëŠ” 1
+//		int32 TargetIndex = PS->GetTeamIndex(); // 0 ë˜ëŠ” 1
 //
-//		// ÅÂ±× »ı¼º: "0_0", "0_1" µî
+//		// íƒœê·¸ ìƒì„±: "0_0", "0_1" ë“±
 //		FString TagStr = FString::Printf(TEXT("%d_%d"), TargetTeam, TargetIndex);
 //		FName TargetTag = FName(*TagStr);
 //
 //		UE_LOG(LogTemp, Warning, TEXT("[AFO] Player Connected! Team: %d, Idx: %d. Finding StartTag: %s"), TargetTeam, TargetIndex, *TagStr);
 //
-//		// 3. ÇØ´ç ÅÂ±×¸¦ °¡Áø PlayerStart Ã£±â
+//		// 3. í•´ë‹¹ íƒœê·¸ë¥¼ ê°€ì§„ PlayerStart ì°¾ê¸°
 //		TArray<AActor*> FoundActors;
 //		UGameplayStatics::GetAllActorsOfClassWithTag(GetWorld(), APlayerStart::StaticClass(), TargetTag, FoundActors);
 //
@@ -461,7 +461,7 @@ void AAFGameMode::HandleSeamlessTravelPlayer(AController*& C)
 //		}
 //	}
 //
-//	// Á¤º¸¸¦ ¸ø Ã£À» °æ¿ì ±âº» PlayerStart ¹İÈ¯
+//	// ì •ë³´ë¥¼ ëª» ì°¾ì„ ê²½ìš° ê¸°ë³¸ PlayerStart ë°˜í™˜
 //	UE_LOG(LogTemp, Error, TEXT("[AFO] Failed to find specific PlayerStart. Using default."));
 //	return Super::ChoosePlayerStart_Implementation(Player);
 //}

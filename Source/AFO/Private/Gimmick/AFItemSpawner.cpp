@@ -1,4 +1,4 @@
-// AFItemSpawner.cpp
+ï»¿// AFItemSpawner.cpp
 
 
 #include "Gimmick/AFItemSpawner.h"
@@ -20,7 +20,7 @@ void AAFItemSpawner::BeginPlay()
     if (HasAuthority())
     {
         GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AAFItemSpawner::RefreshItems, SpawnInterval, true);
-        // ½ÃÀÛÇÏÀÚ¸¶ÀÚ Ã¹ ½ºÆù
+        // ì‹œì‘í•˜ìë§ˆì ì²« ìŠ¤í°
         RefreshItems();
     }
 }
@@ -47,14 +47,14 @@ void AAFItemSpawner::ClearExistingItems()
 
 void AAFItemSpawner::SpawnRandomItems()
 {
-    // ¹æ¾îÀû ÄÚµå: µî·ÏµÈ Å¬·¡½º³ª Æ÷ÀÎÆ®°¡ ºÎÁ·ÇÏ¸é ½ÇÇà ¾È ÇÔ
+    // ë°©ì–´ì  ì½”ë“œ: ë“±ë¡ëœ í´ë˜ìŠ¤ë‚˜ í¬ì¸íŠ¸ê°€ ë¶€ì¡±í•˜ë©´ ì‹¤í–‰ ì•ˆ í•¨
     if (ItemClasses.Num() == 0 || SpawnPoints.Num() < SpawnCount)
     {
-        UE_LOG(LogTemp, Warning, TEXT("AFItemSpawner: ¾ÆÀÌÅÛ Å¬·¡½º³ª ½ºÆù Æ÷ÀÎÆ®°¡ ºÎÁ·ÇÕ´Ï´Ù!"));
+        UE_LOG(LogTemp, Warning, TEXT("AFItemSpawner: ì•„ì´í…œ í´ë˜ìŠ¤ë‚˜ ìŠ¤í° í¬ì¸íŠ¸ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤!"));
         return;
     }
 
-    // ÀÌ¹ø ÅÏ¿¡ »ç¿ëÇÒ Æ÷ÀÎÆ®µé°ú Å¬·¡½ºµéÀ» º¹»ç (ºñº¹¿ø ÃßÃâÀ» À§ÇÔ)
+    // ì´ë²ˆ í„´ì— ì‚¬ìš©í•  í¬ì¸íŠ¸ë“¤ê³¼ í´ë˜ìŠ¤ë“¤ì„ ë³µì‚¬ (ë¹„ë³µì› ì¶”ì¶œì„ ìœ„í•¨)
     TArray<TObjectPtr<AActor>> AvailablePoints = SpawnPoints;
     TArray<TSubclassOf<AAFBuffItem>> AvailableClasses = ItemClasses;
 
@@ -62,17 +62,17 @@ void AAFItemSpawner::SpawnRandomItems()
     {
         if (AvailablePoints.Num() == 0 || AvailableClasses.Num() == 0) break;
 
-        // 1. ·£´ı Æ÷ÀÎÆ® ¼±ÅÃ ¹× Á¦°Å (Áßº¹ À§Ä¡ ¹æÁö)
+        // 1. ëœë¤ í¬ì¸íŠ¸ ì„ íƒ ë° ì œê±° (ì¤‘ë³µ ìœ„ì¹˜ ë°©ì§€)
         int32 PointIdx = FMath::RandRange(0, AvailablePoints.Num() - 1);
         AActor* SelectedPoint = AvailablePoints[PointIdx];
         AvailablePoints.RemoveAt(PointIdx);
 
-        // 2. ·£´ı ¾ÆÀÌÅÛ Å¬·¡½º ¼±ÅÃ ¹× Á¦°Å (Áßº¹ ¾ÆÀÌÅÛ Á¾·ù ¹æÁö)
+        // 2. ëœë¤ ì•„ì´í…œ í´ë˜ìŠ¤ ì„ íƒ ë° ì œê±° (ì¤‘ë³µ ì•„ì´í…œ ì¢…ë¥˜ ë°©ì§€)
         int32 ClassIdx = FMath::RandRange(0, AvailableClasses.Num() - 1);
         TSubclassOf<AAFBuffItem> SelectedClass = AvailableClasses[ClassIdx];
         AvailableClasses.RemoveAt(ClassIdx);
 
-        // 3. ½ºÆù (Å¸°Ù Æ÷ÀÎÆ®ÀÇ À§Ä¡¿Í È¸Àü°ª ±×´ë·Î »ç¿ë)
+        // 3. ìŠ¤í° (íƒ€ê²Ÿ í¬ì¸íŠ¸ì˜ ìœ„ì¹˜ì™€ íšŒì „ê°’ ê·¸ëŒ€ë¡œ ì‚¬ìš©)
         if (SelectedPoint && SelectedClass)
         {
             FVector Location = SelectedPoint->GetActorLocation();

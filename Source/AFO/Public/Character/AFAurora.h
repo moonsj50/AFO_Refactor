@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CoreMinimal.h"
 #include "Character/AFPlayerCharacter.h"
@@ -41,10 +41,10 @@ protected:
 	float AttackDamage = 20.f;
 	bool bHeavyHitChecked = false;
 
-	/** --- µ¥ÀÌÅÍ ·Îµå ·ÎÁ÷ --- */
+	/** --- ë°ì´í„° ë¡œë“œ ë¡œì§ --- */
 	void LoadAuroraData();
 
-	// ½ºÅ³ ÄÄÆ÷³ÍÆ®¸¦ ÀúÀåÇÒ ¸â¹ö º¯¼ö ¼±¾ğ
+	// ìŠ¤í‚¬ ì»´í¬ë„ŒíŠ¸ë¥¼ ì €ì¥í•  ë©¤ë²„ ë³€ìˆ˜ ì„ ì–¸
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UAFSkillComponent> SkillComponent;
 
@@ -54,7 +54,7 @@ protected:
 	virtual void ServerRPC_SkillE_Implementation() override;
 	virtual void ServerRPC_SkillQ_Implementation() override;
 
-	// ³»ºÎÀûÀ¸·Î »ç¿ëÇÒ ½ºÅ³ µ¥ÀÌÅÍ Ä³½Ì (¸Å¹ø FindRow ¹æÁö)
+	// ë‚´ë¶€ì ìœ¼ë¡œ ì‚¬ìš©í•  ìŠ¤í‚¬ ë°ì´í„° ìºì‹± (ë§¤ë²ˆ FindRow ë°©ì§€)
 	FAFSkillInfo QSkillData;
 	FAFSkillInfo ESkillData;
 	FAFSkillInfo HeavyAttackData;

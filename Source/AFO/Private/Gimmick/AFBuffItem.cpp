@@ -1,4 +1,4 @@
-// AFBuffItem.cpp
+ï»¿// AFBuffItem.cpp
 
 #include "Gimmick/AFBuffItem.h"
 #include "Components/SphereComponent.h"
@@ -21,7 +21,7 @@ AAFBuffItem::AAFBuffItem()
 	SetRootComponent(CollisionComponent);
 	CollisionComponent->SetSphereRadius(50.f);
 
-	// ¼­¹ö¿¡¼­¸¸ Overlap ÀÌº¥Æ®¸¦ ½ÇÇàÇÏµµ·Ï ¼³Á¤
+	// ì„œë²„ì—ì„œë§Œ Overlap ì´ë²¤íŠ¸ë¥¼ ì‹¤í–‰í•˜ë„ë¡ ì„¤ì •
 	CollisionComponent->SetCollisionProfileName(TEXT("Trigger"));
 	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AAFBuffItem::OnOverlapBegin);
 
@@ -37,7 +37,7 @@ void AAFBuffItem::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ³ªÀÌ¾Æ°¡¶ó ½Ã½ºÅÛ ¾ÈÀÇ 'Color' ÆÄ¶ó¹ÌÅÍ ÀÌ¸§À» ¸ÂÃç¾ß ÇÔ (¿¹: "UserColor")
+	// ë‚˜ì´ì•„ê°€ë¼ ì‹œìŠ¤í…œ ì•ˆì˜ 'Color' íŒŒë¼ë¯¸í„° ì´ë¦„ì„ ë§ì¶°ì•¼ í•¨ (ì˜ˆ: "UserColor")
 	if (BuffEffect)
 	{
 		BuffEffect->SetNiagaraVariableLinearColor(TEXT("User.BaseColor"), BuffColor);
@@ -49,33 +49,33 @@ void AAFBuffItem::BeginPlay()
 void AAFBuffItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	// ¾ÆÀÌÅÛÀÌ µÕµÕ ¶°ÀÖ°Å³ª È¸ÀüÇÏ´Â ¿¬Ãâ (Å¬¶ó¿¡¼­µµ µ¹¾Æ°¨)
+	// ì•„ì´í…œì´ ë‘¥ë‘¥ ë– ìˆê±°ë‚˜ íšŒì „í•˜ëŠ” ì—°ì¶œ (í´ë¼ì—ì„œë„ ëŒì•„ê°)
 	AddActorLocalRotation(FRotator(0.f, 100.f * DeltaTime, 0.f));
 }
 
 void AAFBuffItem::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-    // 1. ¼­¹ö ±ÇÇÑ ¹× ´ë»ó À¯È¿¼º °Ë»ç
+    // 1. ì„œë²„ ê¶Œí•œ ë° ëŒ€ìƒ ìœ íš¨ì„± ê²€ì‚¬
     if (!HasAuthority() || !OtherActor) return;
 
-    // 2. Ä³¸¯ÅÍ Ä³½ºÆÃ
+    // 2. ìºë¦­í„° ìºìŠ¤íŒ…
     AAFPlayerCharacter* TargetCharacter = Cast<AAFPlayerCharacter>(OtherActor);
     if (!TargetCharacter) return;
 
-    // 3. PlayerState °¡Á®¿À±â (Ã¼·Â/¸¶³ª ½ÇÁ¦ µ¥ÀÌÅÍ´Â PS¿¡ ÀÖÀ¸¹Ç·Î)
+    // 3. PlayerState ê°€ì ¸ì˜¤ê¸° (ì²´ë ¥/ë§ˆë‚˜ ì‹¤ì œ ë°ì´í„°ëŠ” PSì— ìˆìœ¼ë¯€ë¡œ)
     AAFPlayerState* PS = TargetCharacter->GetPlayerState<AAFPlayerState>();
     if (!PS) return;
 
-    // 4. ¹öÇÁ Å¸ÀÔ¿¡ µû¸¥ ·ÎÁ÷ ¼öÇà
+    // 4. ë²„í”„ íƒ€ì…ì— ë”°ë¥¸ ë¡œì§ ìˆ˜í–‰
     switch (BuffType)
     {
     case EBuffType::Heal:
     {
-        // Ã¼·Â È¸º¹ (BuffValue¸¸Å­, ÃÖ´ëÄ¡ Á¦ÇÑ)
+        // ì²´ë ¥ íšŒë³µ (BuffValueë§Œí¼, ìµœëŒ€ì¹˜ ì œí•œ)
         float NewHealth = FMath::Clamp(PS->GetCurrentHealth() + HealAmount, 0.0f, PS->GetMaxHealth());
         PS->SetHealth(NewHealth, PS->GetMaxHealth());
         
-        // ¸¶³ª È¸º¹ (Heal ¾ÆÀÌÅÛÀº ¸¶³ªµµ °°ÀÌ Ã¤¿öÁÜ)
+        // ë§ˆë‚˜ íšŒë³µ (Heal ì•„ì´í…œì€ ë§ˆë‚˜ë„ ê°™ì´ ì±„ì›Œì¤Œ)
         PS->AddMana(HealAmount);
 
         UE_LOG(LogTemp, Log, TEXT("[BUFF] %s Healed: HP/MP +%f"), *PS->GetPlayerName(), HealAmount);
@@ -84,12 +84,12 @@ void AAFBuffItem::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 
     case EBuffType::Attack:
     {
-        UE_LOG(LogTemp, Log, TEXT("Overlap: Attack Buff Item Picked Up!")); // ÀÌ ·Î±×°¡ ¶ß´ÂÁö È®ÀÎ
+        UE_LOG(LogTemp, Log, TEXT("Overlap: Attack Buff Item Picked Up!")); // ì´ ë¡œê·¸ê°€ ëœ¨ëŠ”ì§€ í™•ì¸
         if (UAFAttributeComponent* Attr = TargetCharacter->FindComponentByClass<UAFAttributeComponent>())
         {
             Attr->ApplyAttackBuff(AttackMultiplier, BuffDuration);
             Attr->Multicast_ApplyAura(AuraEffect, BuffColor, BuffDuration);
-            UE_LOG(LogTemp, Log, TEXT("Overlap: Attack Buff Item Adapted!")); // ÀÌ ·Î±×°¡ ¶ß´ÂÁö È®ÀÎ
+            UE_LOG(LogTemp, Log, TEXT("Overlap: Attack Buff Item Adapted!")); // ì´ ë¡œê·¸ê°€ ëœ¨ëŠ”ì§€ í™•ì¸
         }
     }
     break;
@@ -97,27 +97,27 @@ void AAFBuffItem::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
     case EBuffType::Speed:
     {
         UAFAttributeComponent* Attr = TargetCharacter->FindComponentByClass<UAFAttributeComponent>();
-        TargetCharacter->ApplySpeedBuff(SpeedMultiplier, BuffDuration); // 10ÃÊ°£ BuffValue¹è ¸¸Å­ »¡¶óÁü
+        TargetCharacter->ApplySpeedBuff(SpeedMultiplier, BuffDuration); // 10ì´ˆê°„ BuffValueë°° ë§Œí¼ ë¹¨ë¼ì§
         Attr->Multicast_ApplyAura(AuraEffect, BuffColor, BuffDuration);
         UE_LOG(LogTemp, Log, TEXT("[BUFF] %s Speed Boosted!"), *PS->GetPlayerName());
     }
     break;
     }
 
-    // 5. ½Ã°¢Àû ÇÇµå¹é ¹× ÆÄ±«
-    // ¼­¹ö¿¡¼­ Destroy()ÇÏ¸é ¿¬°áµÈ Å¬¶óÀÌ¾ğÆ®µé¿¡¼­µµ ÀÚµ¿À¸·Î »ç¶óÁı´Ï´Ù.
+    // 5. ì‹œê°ì  í”¼ë“œë°± ë° íŒŒê´´
+    // ì„œë²„ì—ì„œ Destroy()í•˜ë©´ ì—°ê²°ëœ í´ë¼ì´ì–¸íŠ¸ë“¤ì—ì„œë„ ìë™ìœ¼ë¡œ ì‚¬ë¼ì§‘ë‹ˆë‹¤.
     Multicast_PlayPickupEffects();
     Destroy();
 }
 
 void AAFBuffItem::Multicast_PlayPickupEffects_Implementation()
 {
-    if (PickupEffect) // ¿¡µğÅÍ¿¡¼­ ÇÒ´çÇÑ ³ªÀÌ¾Æ°¡¶ó ½Ã½ºÅÛ
+    if (PickupEffect) // ì—ë””í„°ì—ì„œ í• ë‹¹í•œ ë‚˜ì´ì•„ê°€ë¼ ì‹œìŠ¤í…œ
     {
         UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), PickupEffect, GetActorLocation());
     }
 
-    if (PickupSound) // ¿¡µğÅÍ¿¡¼­ ÇÒ´çÇÑ USoundBase
+    if (PickupSound) // ì—ë””í„°ì—ì„œ í• ë‹¹í•œ USoundBase
     {
         UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation());
     }

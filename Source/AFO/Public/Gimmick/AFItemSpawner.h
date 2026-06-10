@@ -1,4 +1,4 @@
-// AFItemSpawner.h
+ï»¿// AFItemSpawner.h
 
 #pragma once
 
@@ -20,26 +20,26 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Spawn Settings")
     TArray<TSubclassOf<class AAFBuffItem>> ItemClasses;
 
-    // ½ºÆù Æ÷ÀÎÆ® ¾×ÅÍ
+    // ìŠ¤í° í¬ì¸íŠ¸ ì•¡í„°
     UPROPERTY(EditAnywhere, Category = "Spawn Settings")
     TArray<TObjectPtr<AActor>> SpawnPoints;
 
-    // ½ºÆù ÁÖ±â (30ÃÊ)
+    // ìŠ¤í° ì£¼ê¸° (30ì´ˆ)
     UPROPERTY(EditAnywhere, Category = "Spawn Settings")
     float SpawnInterval = 30.0f;
 
-    // ÇÑ ¹ø¿¡ ½ºÆùÇÒ ¾ÆÀÌÅÛ °³¼ö (2°³)
+    // í•œ ë²ˆì— ìŠ¤í°í•  ì•„ì´í…œ ê°œìˆ˜ (2ê°œ)
     UPROPERTY(EditAnywhere, Category = "Spawn Settings")
     int32 SpawnCount = 2;
 
 private:
-    // ÇöÀç ¿ùµå¿¡ »ı¼ºµÈ ¾ÆÀÌÅÛµéÀ» °ü¸® (´ÙÀ½ ÁÖ±â ¶§ Á¦°Å¿ë)
+    // í˜„ì¬ ì›”ë“œì— ìƒì„±ëœ ì•„ì´í…œë“¤ì„ ê´€ë¦¬ (ë‹¤ìŒ ì£¼ê¸° ë•Œ ì œê±°ìš©)
     UPROPERTY()
     TArray<TObjectPtr<class AAFBuffItem>> CurrentSpawnedItems;
 
     FTimerHandle SpawnTimerHandle;
 
-    void RefreshItems(); // ±âÁ¸ ¾ÆÀÌÅÛ »èÁ¦ ¹× »õ ¾ÆÀÌÅÛ »ı¼º ¸ŞÀÎ ·ÎÁ÷
+    void RefreshItems(); // ê¸°ì¡´ ì•„ì´í…œ ì‚­ì œ ë° ìƒˆ ì•„ì´í…œ ìƒì„± ë©”ì¸ ë¡œì§
     void ClearExistingItems();
     void SpawnRandomItems();
 

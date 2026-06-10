@@ -1,4 +1,4 @@
-// AFInGameWidget.h
+ï»¿// AFInGameWidget.h
 
 #pragma once
 
@@ -18,15 +18,15 @@ class AFO_API UAFInGameWidget : public UUserWidget
 	
 public:
 	// =============================
-	// 1. ÃÊ±âÈ­ ¹× ¹ÙÀÎµù ÁøÀÔÁ¡
+	// 1. ì´ˆê¸°í™” ë° ë°”ì¸ë”© ì§„ì…ì 
 	// =============================
 	void InitializeTeamUI(TArray<APlayerState*> AllPlayerStates);
 
 // =============================
-// 2. µ¨¸®°ÔÀÌÆ® ÇÚµé·¯
+// 2. ë¸ë¦¬ê²Œì´íŠ¸ í•¸ë“¤ëŸ¬
 // =============================
 
-	// ÆÀ ½ºÄÚ¾îº¸µå ÇÚµé·¯
+	// íŒ€ ìŠ¤ì½”ì–´ë³´ë“œ í•¸ë“¤ëŸ¬
 	UFUNCTION()
 	void UpdatePlayerHealthBar(float CurrentHealth, float MaxHealth, class AAFPlayerState* TargetPS);
 	UFUNCTION()
@@ -36,32 +36,32 @@ public:
 	UFUNCTION()
 	void UpdatePlayerDeathCount(int32 NewDeathCount, AAFPlayerState* TargetPS);
 	
-	// ÆÀ ÃÑÇÕ ½ºÄÚ¾î °»½Å ÇÚµé·¯
+	// íŒ€ ì´í•© ìŠ¤ì½”ì–´ ê°±ì‹  í•¸ë“¤ëŸ¬
 	UFUNCTION()
 	void UpdateTeamKillDeathScore(int32 NewValue, class AAFPlayerState* TargetPS);
 
-	// ÀÚ½Å Àü¿ë µ¨¸®°ÔÀÌÆ® ÇÚµé·¯
+	// ìì‹  ì „ìš© ë¸ë¦¬ê²Œì´íŠ¸ í•¸ë“¤ëŸ¬
 	UFUNCTION()
 	void UpdateMyHealthBar(float NewHealth, float MaxHealth, AAFPlayerState* TargetPS);
 	UFUNCTION()
 	void UpdateMyManaBar(float NewMana, float MaxMana, AAFPlayerState* TargetPS);
 
-	// Å¸ÀÌ¸Ó µ¨¸®°ÔÀÌÆ® ÇÚµé·¯
+	// íƒ€ì´ë¨¸ ë¸ë¦¬ê²Œì´íŠ¸ í•¸ë“¤ëŸ¬
 	UFUNCTION()
 	void UpdateGameTimerText(int32 NewTime);
 
 // =============================
-// 3. UMG À§Á¬ º¯¼ö
+// 3. UMG ìœ„ì ¯ ë³€ìˆ˜
 // =============================
 protected:
 
-	// A. ÇÃ·¹ÀÌ¾î ÀÌ¸§ (TextBlock)
+	// A. í”Œë ˆì´ì–´ ì´ë¦„ (TextBlock)
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedPlayerName01;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedPlayerName02;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* BluePlayerName01;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* BluePlayerName02;
 
-	// B. ÇÃ·¹ÀÌ¾î HP/MP (ProgressBar)
+	// B. í”Œë ˆì´ì–´ HP/MP (ProgressBar)
 	UPROPERTY(meta = (BindWidget)) class UProgressBar* RedPlayer1HP;
 	UPROPERTY(meta = (BindWidget)) class UProgressBar* RedPlayer2HP;
 	UPROPERTY(meta = (BindWidget)) class UProgressBar* RedPlayer1MP;
@@ -72,7 +72,7 @@ protected:
 	UPROPERTY(meta = (BindWidget)) class UProgressBar* BluePlayer1MP;
 	UPROPERTY(meta = (BindWidget)) class UProgressBar* BluePlayer2MP;
 
-	// C. ÇÃ·¹ÀÌ¾î Å³/µ¥½º (TextBlock)
+	// C. í”Œë ˆì´ì–´ í‚¬/ë°ìŠ¤ (TextBlock)
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedPlayer1Kill;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedPlayer1Death;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedPlayer2Kill;
@@ -82,13 +82,13 @@ protected:
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* BluePlayer2Kill;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* BluePlayer2Death;
 
-	// D. ÆÀ ÃÑÇÕ ½ºÄÚ¾î (TextBlock)
+	// D. íŒ€ ì´í•© ìŠ¤ì½”ì–´ (TextBlock)
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedKillScore;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* BlueKillScore;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* RedDeathScore;
 	UPROPERTY(meta = (BindWidget)) class UTextBlock* BlueDeathScore;
 
-	// E. ÀÚ½ÅÀÇ Ä³¸¯ÅÍ HP/MP
+	// E. ìì‹ ì˜ ìºë¦­í„° HP/MP
 		// [Healt, Mana Bar]
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UProgressBar> PlayerHP;
@@ -102,27 +102,27 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> Text_PlayerMP;
 
-	// F. Å¸ÀÌ¸Ó
+	// F. íƒ€ì´ë¨¸
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> GameTimer;
 
 
 private:
-	// ¸ğµç À¯È¿ÇÑ PlayerState¸¦ ÆÀ ¹× ÀÎµ¦½ºº°·Î ÀúÀå. ÆÀ ÃÑÇÕ ½ºÄÚ¾î °è»ê
+	// ëª¨ë“  ìœ íš¨í•œ PlayerStateë¥¼ íŒ€ ë° ì¸ë±ìŠ¤ë³„ë¡œ ì €ì¥. íŒ€ ì´í•© ìŠ¤ì½”ì–´ ê³„ì‚°
 	TMap<uint8, TArray<AAFPlayerState*>> TeamPlayerStates;
 
 protected:
 	virtual void NativeConstruct() override;
 
-	// PlayerState°¡ À¯È¿ÇÑÁö ¹İº¹ È®ÀÎÇÏ±â À§ÇÑ Å¸ÀÌ¸Ó ÇÚµé
+	// PlayerStateê°€ ìœ íš¨í•œì§€ ë°˜ë³µ í™•ì¸í•˜ê¸° ìœ„í•œ íƒ€ì´ë¨¸ í•¸ë“¤
 	FTimerHandle PlayerStateCheckTimerHandle;
 
-	// PlayerState¸¦ È®ÀÎÇÏ°í ¹ÙÀÎµùÇÏ´Â ÇÔ¼ö
+	// PlayerStateë¥¼ í™•ì¸í•˜ê³  ë°”ì¸ë”©í•˜ëŠ” í•¨ìˆ˜
 	UFUNCTION()
 	void CheckAndBindPlayerState();
 	void BindToPlayerState(AAFPlayerState* PS);
 
-	bool bTeamUIInitialized = false; // ÃÊ±âÈ­ ÇÃ·¡±×
+	bool bTeamUIInitialized = false; // ì´ˆê¸°í™” í”Œë˜ê·¸
 
 	void CheckAndInitializeUI();
 	FTimerHandle InitTimerHandle;
@@ -131,17 +131,17 @@ protected:
 	void HandlePlayerArrayChanged();
 
 
-	// ÀÌ¹Ì UI ¹ÙÀÎµùÀÌ ¿Ï·áµÈ PlayerStateµéÀ» ÀúÀå (Áßº¹ ¹æÁö)
+	// ì´ë¯¸ UI ë°”ì¸ë”©ì´ ì™„ë£Œëœ PlayerStateë“¤ì„ ì €ì¥ (ì¤‘ë³µ ë°©ì§€)
 	UPROPERTY()
 	TSet<class AAFPlayerState*> BoundPlayerStates;
 
-	// ÃÖ´ë ÀÎ¿ø¼ö (GameState µî¿¡¼­ °¡Á®¿Àµµ·Ï ¼³Á¤ °¡´É)
+	// ìµœëŒ€ ì¸ì›ìˆ˜ (GameState ë“±ì—ì„œ ê°€ì ¸ì˜¤ë„ë¡ ì„¤ì • ê°€ëŠ¥)
 	int32 MaxPlayerCount = 4;
 
 
 
 	protected:
-		// °ÔÀÓ ½Â¸® ÆĞ¹è °á°ú À§Á¬
+		// ê²Œì„ ìŠ¹ë¦¬ íŒ¨ë°° ê²°ê³¼ ìœ„ì ¯
 		UPROPERTY(EditDefaultsOnly, Category = "UI|Result")
 		TSubclassOf<UUserWidget> VictoryWidgetClass;
 

@@ -1,4 +1,4 @@
-// AFKillLogEntry.h
+ï»¿// AFKillLogEntry.h
 
 #pragma once
 
@@ -28,14 +28,14 @@ protected:
     FTimerHandle DestroyTimerHandle;
 
 public:
-    // µ¥ÀÌÅÍ¸¦ ¼¼ÆÃÇÏ´Â ÇÔ¼ö
+    // ë°ì´í„°ë¥¼ ì„¸íŒ…í•˜ëŠ” í•¨ìˆ˜
     void SetKillLog(const FString& KillerName, FLinearColor KillerColor, const FString& VictimName, FLinearColor VictimColor);
 
 
-    // ÃÊ±â ¼³Á¤ ¹× ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+    // ì´ˆê¸° ì„¤ì • ë° ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
     virtual void NativeConstruct() override;
 
-    // Á¦°Å ÇÔ¼ö
+    // ì œê±° í•¨ìˆ˜
     void RemoveSelf();
 };
 

@@ -1,4 +1,4 @@
-// AFHealthBarWidget.cpp
+ï»¿// AFHealthBarWidget.cpp
 
 
 #include "UI/AFHealthBarWidget.h"
@@ -12,7 +12,7 @@ void UAFHealthBarWidget::BindToCharacter(AActor* OwningActor)
 
 	TargetActor = OwningActor;
 
-	// InGameWidgetÃ³·³ Å¸ÀÌ¸Ó¸¦ »ç¿ëÇÏ¿© ¹İº¹ Ã¼Å© (0.1~0.2ÃÊ °£°İ)
+	// InGameWidgetì²˜ëŸ¼ íƒ€ì´ë¨¸ë¥¼ ì‚¬ìš©í•˜ì—¬ ë°˜ë³µ ì²´í¬ (0.1~0.2ì´ˆ ê°„ê²©)
 	GetWorld()->GetTimerManager().SetTimer(InitializationTimerHandle, this, &UAFHealthBarWidget::AttemptBind, 0.2f, true);
 }
 
@@ -24,14 +24,14 @@ void UAFHealthBarWidget::HandleHealthChanged(float CurrentHealth, float MaxHealt
 
     float Percent = CurrentHealth / MaxHealth;
 
-    // [ÇÙ½É] C++¿¡¼­ Á÷Á¢ ÇÁ·Î±×·¹½º ¹Ù ¾÷µ¥ÀÌÆ®
+    // [í•µì‹¬] C++ì—ì„œ ì§ì ‘ í”„ë¡œê·¸ë ˆìŠ¤ ë°” ì—…ë°ì´íŠ¸
     if (HealthPB)
     {
         HealthPB->SetPercent(Percent);
         UE_LOG(LogTemp, Log, TEXT("[HealthBar] Direct UI Update: %.2f%%"), Percent * 100.f);
     }
 
-    // ±âÁ¸ ÀÌº¥Æ®´Â ¿¬Ãâ¿ë(¾Ö´Ï¸ŞÀÌ¼Ç µî)À¸·Î ³²°ÜµÎ°í È£Ãâ¸¸ ÇØÁİ´Ï´Ù.
+    // ê¸°ì¡´ ì´ë²¤íŠ¸ëŠ” ì—°ì¶œìš©(ì• ë‹ˆë©”ì´ì…˜ ë“±)ìœ¼ë¡œ ë‚¨ê²¨ë‘ê³  í˜¸ì¶œë§Œ í•´ì¤ë‹ˆë‹¤.
     OnUpdateHealthVisual(Percent);
 }
 
@@ -48,25 +48,25 @@ void UAFHealthBarWidget::UpdateInitialState()
 	APawn* OwningPawn = Cast<APawn>(Actor);
 	if (!OwningPawn) return;
 
-	// ³» PlayerState¿Í »ó´ë¹æ PlayerState¸¦ ¸ğµÎ °¡Á®¿É´Ï´Ù.
+	// ë‚´ PlayerStateì™€ ìƒëŒ€ë°© PlayerStateë¥¼ ëª¨ë‘ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	APlayerController* LocalPC = GetWorld()->GetFirstPlayerController();
 	AAFPlayerState* LocalPS = LocalPC ? LocalPC->GetPlayerState<AAFPlayerState>() : nullptr;
 	AAFPlayerState* TargetPS = OwningPawn->GetPlayerState<AAFPlayerState>();
 
-	// ¡Ú ÇÙ½É: µÑ ´Ù Á¸ÀçÇØ¾ß ÇÏ¸ç, ÆÀ ID°¡ ÃÊ±â°ª(º¸Åë 255)ÀÌ ¾Æ´Ò ¶§¸¸ ½ÇÇàÇÕ´Ï´Ù.
+	// â˜… í•µì‹¬: ë‘˜ ë‹¤ ì¡´ì¬í•´ì•¼ í•˜ë©°, íŒ€ IDê°€ ì´ˆê¸°ê°’(ë³´í†µ 255)ì´ ì•„ë‹ ë•Œë§Œ ì‹¤í–‰í•©ë‹ˆë‹¤.
 	if (LocalPS && TargetPS && TargetPS->GetTeamID() != 255)
 	{
-		// 1. Ã¼·Â º¯°æ µ¨¸®°ÔÀÌÆ® ¿¬°á (AddUnique·Î Áßº¹ ¹æÁö)
+		// 1. ì²´ë ¥ ë³€ê²½ ë¸ë¦¬ê²Œì´íŠ¸ ì—°ê²° (AddUniqueë¡œ ì¤‘ë³µ ë°©ì§€)
 		TargetPS->OnHealthChanged.AddUniqueDynamic(this, &UAFHealthBarWidget::HandleHealthChanged);
 
-		// 2. ÃÊ±â °ª Áï½Ã ¹İ¿µ
+		// 2. ì´ˆê¸° ê°’ ì¦‰ì‹œ ë°˜ì˜
 		HandleHealthChanged(TargetPS->GetCurrentHealth(), TargetPS->GetMaxHealth(), TargetPS);
 
-		// 3. ÆÀ »ö»ó ¼³Á¤ (³» ÆÀ°ú °°À¸¸é ÆÄ¶û, ´Ù¸£¸é »¡°­)
+		// 3. íŒ€ ìƒ‰ìƒ ì„¤ì • (ë‚´ íŒ€ê³¼ ê°™ìœ¼ë©´ íŒŒë‘, ë‹¤ë¥´ë©´ ë¹¨ê°•)
 		FLinearColor TeamColor = (LocalPS->GetTeamID() == TargetPS->GetTeamID()) ? FLinearColor::Blue : FLinearColor::Red;
 		OnUpdateTeamVisual(TeamColor);
 
-		// ¹ÙÀÎµù¿¡ ¼º°øÇßÀ¸¹Ç·Î Å¸ÀÌ¸Ó¸¦ ÁßÁöÇÕ´Ï´Ù.
+		// ë°”ì¸ë”©ì— ì„±ê³µí–ˆìœ¼ë¯€ë¡œ íƒ€ì´ë¨¸ë¥¼ ì¤‘ì§€í•©ë‹ˆë‹¤.
 		GetWorld()->GetTimerManager().ClearTimer(InitializationTimerHandle);
 
 		UE_LOG(LogTemp, Log, TEXT("HealthBar Successfully Bound to: %s (Team: %d)"), *Actor->GetName(), TargetPS->GetTeamID());
@@ -93,7 +93,7 @@ void UAFHealthBarWidget::AttemptBind()
     APlayerController* LocalPC = GetWorld()->GetFirstPlayerController();
     AAFPlayerState* LocalPS = LocalPC ? LocalPC->GetPlayerState<AAFPlayerState>() : nullptr;
 
-    // 1. InGameWidgetÃ³·³ TeamID¿Í PlayerState°¡ ¿ÏÀüÈ÷ º¹Á¦µÇ¾ú´ÂÁö È®ÀÎ
+    // 1. InGameWidgetì²˜ëŸ¼ TeamIDì™€ PlayerStateê°€ ì™„ì „íˆ ë³µì œë˜ì—ˆëŠ”ì§€ í™•ì¸
     if (TargetPS && LocalPS && TargetPS->GetTeamID() != 255 && LocalPS->GetTeamID() != 255)
     {
         float CurrHP = TargetPS->GetCurrentHealth();
@@ -101,21 +101,21 @@ void UAFHealthBarWidget::AttemptBind()
 
         if (MaxHP > 100.1f)
         {
-            // µ¨¸®°ÔÀÌÆ® ¿¬°á
+            // ë¸ë¦¬ê²Œì´íŠ¸ ì—°ê²°
             TargetPS->OnHealthChanged.RemoveDynamic(this, &UAFHealthBarWidget::HandleHealthChanged);
             TargetPS->OnHealthChanged.AddDynamic(this, &UAFHealthBarWidget::HandleHealthChanged);
 
-            // ÆÀ »ö»ó °áÁ¤
+            // íŒ€ ìƒ‰ìƒ ê²°ì •
             FLinearColor TeamColor = (LocalPS->GetTeamID() == TargetPS->GetTeamID()) ? FLinearColor::Blue : FLinearColor::Red;
 
-            // [ÇÙ½É] ÃÊ±â »óÅÂ¸¦ C++¿¡¼­ Á÷Á¢ °­Á¦ ¼³Á¤
+            // [í•µì‹¬] ì´ˆê¸° ìƒíƒœë¥¼ C++ì—ì„œ ì§ì ‘ ê°•ì œ ì„¤ì •
             if (HealthPB)
             {
                 HealthPB->SetPercent(CurrHP / MaxHP);
                 HealthPB->SetFillColorAndOpacity(TeamColor);
             }
 
-            // ºí·çÇÁ¸°Æ® ÀÌº¥Æ®µµ ÇÊ¿äÇÑ °æ¿ì¸¦ À§ÇØ È£Ãâ
+            // ë¸”ë£¨í”„ë¦°íŠ¸ ì´ë²¤íŠ¸ë„ í•„ìš”í•œ ê²½ìš°ë¥¼ ìœ„í•´ í˜¸ì¶œ
             OnUpdateTeamVisual(TeamColor);
 
             bIsInitialized = true;

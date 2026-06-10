@@ -1,4 +1,4 @@
-// AFRespawnWidget.cpp
+ï»¿// AFRespawnWidget.cpp
 
 
 #include "UI/AFRespawnWidget.h"
@@ -13,7 +13,7 @@ void UAFRespawnWidget::InitRespawnTimer(float InDuration)
 
 	if (RespawnProgressBar)
 	{
-		RespawnProgressBar->SetPercent(1.0f); // Ã³À½¿¡ °¡µæ Ã¤¿ò
+		RespawnProgressBar->SetPercent(1.0f); // ì²˜ìŒì— ê°€ë“ ì±„ì›€
 	}
 }
 
@@ -23,7 +23,7 @@ void UAFRespawnWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 
 	ElapsedTime += InDeltaTime;
 
-	// 1.0¿¡¼­ 0.0À¸·Î ÁÙ¾îµå´Â ºñÀ² °è»ê
+	// 1.0ì—ì„œ 0.0ìœ¼ë¡œ ì¤„ì–´ë“œëŠ” ë¹„ìœ¨ ê³„ì‚°
 	float NewPercent = FMath::Clamp(1.0f - (ElapsedTime / MaxDuration), 0.0f, 1.0f);
 
 	if (RespawnProgressBar)
@@ -31,11 +31,11 @@ void UAFRespawnWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 		RespawnProgressBar->SetPercent(NewPercent);
 	}
 
-	// ¼ýÀÚ·Î º¸¿©ÁÖ±â
+	// ìˆ«ìžë¡œ ë³´ì—¬ì£¼ê¸°
 	if (Text_RespawnTime)
 	{
 		int32 RemainingSeconds = FMath::CeilToInt(MaxDuration - ElapsedTime);
-		RemainingSeconds = FMath::Max(0, RemainingSeconds); // 0 ÀÌÇÏ·Î ³»·Á°¡Áö ¾Ê°Ô
+		RemainingSeconds = FMath::Max(0, RemainingSeconds); // 0 ì´í•˜ë¡œ ë‚´ë ¤ê°€ì§€ ì•Šê²Œ
 
 		FText FormattedText = FText::Format(
 			NSLOCTEXT("UI", "RespawnWaitFormat", "Please wait {0}s."),
@@ -44,7 +44,7 @@ void UAFRespawnWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 		Text_RespawnTime->SetText(FormattedText);
 	}
 
-	// ½Ã°£ÀÌ ´Ù µÇ¸é ½º½º·Î Á¦°Å
+	// ì‹œê°„ì´ ë‹¤ ë˜ë©´ ìŠ¤ìŠ¤ë¡œ ì œê±°
 	if (ElapsedTime >= MaxDuration)
 	{
 		RemoveFromParent();

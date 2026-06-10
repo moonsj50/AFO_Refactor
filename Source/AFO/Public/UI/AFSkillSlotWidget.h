@@ -1,4 +1,4 @@
-// AFSkillSlotWidget.h
+ï»¿// AFSkillSlotWidget.h
 
 #pragma once
 
@@ -18,7 +18,7 @@ public:
 
 	UAFSkillSlotWidget(const FObjectInitializer& ObjectInitializer);
 
-	// ½½·Ô¿¡ µ¥ÀÌÅÍ¸¦ Ã¤¿ì´Â ÇÙ½É ÇÔ¼ö
+	// ìŠ¬ë¡¯ì— ë°ì´í„°ë¥¼ ì±„ìš°ëŠ” í•µì‹¬ í•¨ìˆ˜
 	UFUNCTION(BlueprintCallable, Category = "AF | UI")
 	void SetSkillSlotInfo(FAFSkillInfo NewSkillInfo, FName InRowName);
 
@@ -27,23 +27,23 @@ public:
 
 
 protected:
-	// ºí·çÇÁ¸°Æ® À§Á¬¿¡ ÀÖ´Â Image ÀÌ¸§À» 'SkillIconImage'·Î ÁöÀ¸¸é ÀÚµ¿À¸·Î ¿¬°áµÊ
+	// ë¸”ë£¨í”„ë¦°íŠ¸ ìœ„ì ¯ì— ìˆëŠ” Image ì´ë¦„ì„ 'SkillIconImage'ë¡œ ì§€ìœ¼ë©´ ìë™ìœ¼ë¡œ ì—°ê²°ë¨
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UImage> SkillIcon;
 
-	// ÇöÀç ½½·ÔÀÌ µé°í ÀÖ´Â µ¥ÀÌÅÍ (³ªÁß¿¡ ÅøÆÁ¿¡ Àü´Ş¿ë)
+	// í˜„ì¬ ìŠ¬ë¡¯ì´ ë“¤ê³  ìˆëŠ” ë°ì´í„° (ë‚˜ì¤‘ì— íˆ´íŒì— ì „ë‹¬ìš©)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AF | Skill")
 	FAFSkillInfo MySkillData;
 
-	// À§Á¬ÀÌ °ü¸®ÇÒ ½ºÅ³ÀÇ ½ÇÁ¦ Çà ÀÌ¸§ (¿¹: "Mage_Q")
+	// ìœ„ì ¯ì´ ê´€ë¦¬í•  ìŠ¤í‚¬ì˜ ì‹¤ì œ í–‰ ì´ë¦„ (ì˜ˆ: "Mage_Q")
 	UPROPERTY()
 	FName MyRowName;
 
-	// NativeTick¿¡¼­ ·Î±× Ãâ·Â ÁÖ±â¸¦ Á¶ÀıÇÏ±â À§ÇÑ º¯¼ö
+	// NativeTickì—ì„œ ë¡œê·¸ ì¶œë ¥ ì£¼ê¸°ë¥¼ ì¡°ì ˆí•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 	float LastLogTime = 0.f;
 
 
-	// UI ¾÷µ¥ÀÌÆ®¸¦ À§ÇØ NativeTickÀ» ¿À¹ö¶óÀÌµåÇÕ´Ï´Ù.
+	// UI ì—…ë°ì´íŠ¸ë¥¼ ìœ„í•´ NativeTickì„ ì˜¤ë²„ë¼ì´ë“œí•©ë‹ˆë‹¤.
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 	UPROPERTY(meta = (BindWidget))
@@ -52,20 +52,20 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* CooldownText;
 
-	// À§Á¬ »ı¼º ½Ã ¶Ç´Â ¿ÜºÎ¿¡¼­ ÇÒ´çÇØÁà¾ß ÇÕ´Ï´Ù.
+	// ìœ„ì ¯ ìƒì„± ì‹œ ë˜ëŠ” ì™¸ë¶€ì—ì„œ í• ë‹¹í•´ì¤˜ì•¼ í•©ë‹ˆë‹¤.
 	UPROPERTY()
 	class UAFSkillComponent* MySkillComponent;
 
 
 protected:
-	// Tick ´ë½Å »ç¿ëÇÒ Å¸ÀÌ¸Ó ÇÚµé
+	// Tick ëŒ€ì‹  ì‚¬ìš©í•  íƒ€ì´ë¨¸ í•¸ë“¤
 	FTimerHandle CooldownUpdateTimerHandle;
 
-	// ÄğÅ¸ÀÓÀ» ½ÇÁ¦·Î °»½ÅÇÒ ÇÔ¼ö
+	// ì¿¨íƒ€ì„ì„ ì‹¤ì œë¡œ ê°±ì‹ í•  í•¨ìˆ˜
 	void UpdateCooldownVisual();
 
 public:
-	// ÄÄÆ÷³ÍÆ® ÁÖÀÔ ½Ã Å¸ÀÌ¸Ó ½ÃÀÛ
+	// ì»´í¬ë„ŒíŠ¸ ì£¼ì… ì‹œ íƒ€ì´ë¨¸ ì‹œì‘
 	void StartUIUpdate();
 
 };

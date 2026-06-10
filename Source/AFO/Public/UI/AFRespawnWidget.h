@@ -1,4 +1,4 @@
-// AFRespawnWidget.h
+ï»¿// AFRespawnWidget.h
 
 #pragma once
 
@@ -13,18 +13,18 @@ class AFO_API UAFRespawnWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	// ÃÊ±â ¼³Á¤ ÇÔ¼ö (¸®½ºÆù ½Ã°£ ¼³Á¤)
+	// ì´ˆê¸° ì„¤ì • í•¨ìˆ˜ (ë¦¬ìŠ¤í° ì‹œê°„ ì„¤ì •)
 	void InitRespawnTimer(float InDuration);
 
 protected:
-	// ¸Å ÇÁ·¹ÀÓ ¾÷µ¥ÀÌÆ® (°ÔÀÌÁö ÁÙÀÌ±â¿ë)
+	// ë§¤ í”„ë ˆì„ ì—…ë°ì´íŠ¸ (ê²Œì´ì§€ ì¤„ì´ê¸°ìš©)
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
-	// UMGÀÇ ProgressBar¿Í ¿¬°á
+	// UMGì˜ ProgressBarì™€ ì—°ê²°
 	UPROPERTY(meta = (BindWidget))
 	class UProgressBar* RespawnProgressBar;
 
-	// ³²Àº ½Ã°£À» ÅØ½ºÆ®·Î º¸¿©ÁÖ±â
+	// ë‚¨ì€ ì‹œê°„ì„ í…ìŠ¤íŠ¸ë¡œ ë³´ì—¬ì£¼ê¸°
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* Text_RespawnTime;
 

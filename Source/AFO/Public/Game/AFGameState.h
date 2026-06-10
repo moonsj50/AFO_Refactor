@@ -1,4 +1,4 @@
-// AFGameState.h
+ï»¿// AFGameState.h
 
 #pragma once
 
@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTimerChangedDelegate, int32, NewRemainingTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPlayerArrayChangedDelegate);
 
-// GamePhase (³Ê ±âÁ¸ ±×´ë·Î)
+// GamePhase (ë„ˆ ê¸°ì¡´ ê·¸ëŒ€ë¡œ)
 UENUM(BlueprintType)
 enum class EAFGamePhase : uint8
 {

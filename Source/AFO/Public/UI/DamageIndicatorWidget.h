@@ -1,4 +1,4 @@
-// DamageIndicatorWidget.h
+ï»¿// DamageIndicatorWidget.h
 
 #pragma once
 
@@ -12,7 +12,7 @@ class AFO_API UDamageIndicatorWidget : public UUserWidget
     GENERATED_BODY()
 
 public:
-    // BlueprintImplementableEvent: C++¿¡¼­ Á¤ÀÇ¸¸ ÇÏ°í, ½ÇÁ¦ ±¸Çö(·ÎÁ÷)Àº ºí·çÇÁ¸°Æ®¿¡¼­ ÇÔ
+    // BlueprintImplementableEvent: C++ì—ì„œ ì •ì˜ë§Œ í•˜ê³ , ì‹¤ì œ êµ¬í˜„(ë¡œì§)ì€ ë¸”ë£¨í”„ë¦°íŠ¸ì—ì„œ í•¨
     UFUNCTION(BlueprintImplementableEvent, Category = "AFO|UI")
     void ReceiveSetDamageText(float DamageAmount, FLinearColor TextColor);
 

@@ -1,4 +1,4 @@
-// AFKillLogEntry.cpp
+ï»¿// AFKillLogEntry.cpp
 
 
 
@@ -10,13 +10,13 @@ void UAFKillLogEntry::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    // 1. ³ªÅ¸³ª±â ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà (¿ìÃø ½½¶óÀÌµå + ÆäÀÌµå ÀÎ)
+    // 1. ë‚˜íƒ€ë‚˜ê¸° ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰ (ìš°ì¸¡ ìŠ¬ë¼ì´ë“œ + í˜ì´ë“œ ì¸)
     if (AppearAnim)
     {
         PlayAnimation(AppearAnim);
     }
 
-    // 2. 3ÃÊ µÚ¿¡ »èÁ¦ ÇÔ¼ö È£Ãâ ¿¹¾à
+    // 2. 3ì´ˆ ë’¤ì— ì‚­ì œ í•¨ìˆ˜ í˜¸ì¶œ ì˜ˆì•½
     GetWorld()->GetTimerManager().SetTimer(DestroyTimerHandle, this, &UAFKillLogEntry::RemoveSelf, 3.0f, false);
 }
 
@@ -53,6 +53,6 @@ void UAFKillLogEntry::SetKillLog(const FString& KillerName, FLinearColor KillerC
 
 
 
-    // ÀÏÁ¤ ½Ã°£ ÈÄ ÀÚµ¿À¸·Î ÆÄ±«µÇ´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÇÇàÇÏ°Å³ª RemoveFromParent¸¦ È£ÃâÇÏ°Ô ¼³°èÇÏ¼¼¿ä.
+    // ì¼ì • ì‹œê°„ í›„ ìë™ìœ¼ë¡œ íŒŒê´´ë˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ì„ ì‹¤í–‰í•˜ê±°ë‚˜ RemoveFromParentë¥¼ í˜¸ì¶œí•˜ê²Œ ì„¤ê³„í•˜ì„¸ìš”.
 
 }

@@ -1,4 +1,4 @@
-// AFBuffItem.h
+ï»¿// AFBuffItem.h
 
 #pragma once
 
@@ -37,7 +37,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Buff")
 	EBuffType BuffType;
 
-	// °¢°¢ÀÇ ¹öÇÁ ¼öÄ¡¿Í ¹öÇÁ Áö¼Ó ½Ã°£
+	// ê°ê°ì˜ ë²„í”„ ìˆ˜ì¹˜ì™€ ë²„í”„ ì§€ì† ì‹œê°„
 	UPROPERTY(EditAnywhere, Category = "Buff | Settings")
 	float HealAmount = 100.0f;
 
@@ -56,26 +56,26 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	FLinearColor BuffColor;
 
-	// ¼­¹ö¿¡¼­¸¸ Ãæµ¹À» Ã³¸®ÇÏµµ·Ï ¼³Á¤
+	// ì„œë²„ì—ì„œë§Œ ì¶©ëŒì„ ì²˜ë¦¬í•˜ë„ë¡ ì„¤ì •
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	// ³ªÀÌ¾Æ°¡¶ó ½Ã½ºÅÛÀ» ´ãÀ» º¯¼ö
+	// ë‚˜ì´ì•„ê°€ë¼ ì‹œìŠ¤í…œì„ ë‹´ì„ ë³€ìˆ˜
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	class UNiagaraSystem* PickupEffect;
 
-	// Ä³¸¯ÅÍ¿¡°Ô Áö¼ÓÀûÀ¸·Î ºÙ¾îÀÖÀ» ¿À¿À¶ó ÀÌÆåÆ®
+	// ìºë¦­í„°ì—ê²Œ ì§€ì†ì ìœ¼ë¡œ ë¶™ì–´ìˆì„ ì˜¤ì˜¤ë¼ ì´í™íŠ¸
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	class UNiagaraSystem* AuraEffect;
 
-	// »ç¿îµå ÆÄÀÏÀ» ´ãÀ» º¯¼ö
+	// ì‚¬ìš´ë“œ íŒŒì¼ì„ ë‹´ì„ ë³€ìˆ˜
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	class USoundBase* PickupSound;
 
 	UFUNCTION(NetMulticast,Reliable)
 	void Multicast_PlayPickupEffects();
 public:
-	// ¾ÆÀÌÅÛ È¸Àü µî ¿¬Ãâ¿ë Tick
+	// ì•„ì´í…œ íšŒì „ ë“± ì—°ì¶œìš© Tick
 	virtual void Tick(float DeltaTime) override;
 	
 	

@@ -1,4 +1,4 @@
-#include "UI/UW_TitleLayout.h"
+ï»¿#include "UI/UW_TitleLayout.h"
 #include "Components/Button.h"
 #include "Components/EditableText.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -56,7 +56,7 @@ void UUW_TitleLayout::OnPlayButtonClicked()
 		UE_LOG(LogTemp, Error, TEXT("ServerIPEditableText is null. Check BindWidget name."));
 	}
 
-	// ¡Ú ÀÌ¸§ °¡Á®¿À±â
+	// â˜… ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 	FString PlayerName = Text_PlayerName ? Text_PlayerName->GetText().ToString().TrimStartAndEnd() : TEXT("DefaultPlayer");
 
 	PC->JoinServer(IP, PlayerName);

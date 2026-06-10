@@ -1,4 +1,4 @@
-// AFFloatingDamagemanager.h
+ï»¿// AFFloatingDamagemanager.h
 
 #pragma once
 
@@ -16,22 +16,22 @@ class AFO_API AAFFloatingDamageManager : public AActor
 public:
 	AAFFloatingDamageManager();
 
-	/** * ¿ÜºÎ¿¡¼­ µ¥¹ÌÁö Ç¥½Ã¸¦ ¿äÃ»ÇÒ ¶§ È£Ãâ
-		 * @param Damage µ¥¹ÌÁö ¾ç
-		 * @param WorldLocation µ¥¹ÌÁö°¡ ¹ß»ıÇÑ ¿ùµå À§Ä¡
-		 * @param bIsEnemyDamage true¸é ³»°¡ ÀûÀ» ¶§¸° °Í(ÆÄ¶û), false¸é ³»°¡ ¸ÂÀº °Í(»¡°­)
-		 * @param bIsCritical Ä¡¸íÅ¸ ¿©ºÎ (³ªÁß¿¡ È®ÀåÇÒ ¶§ »ç¿ë)
+	/** * ì™¸ë¶€ì—ì„œ ë°ë¯¸ì§€ í‘œì‹œë¥¼ ìš”ì²­í•  ë•Œ í˜¸ì¶œ
+		 * @param Damage ë°ë¯¸ì§€ ì–‘
+		 * @param WorldLocation ë°ë¯¸ì§€ê°€ ë°œìƒí•œ ì›”ë“œ ìœ„ì¹˜
+		 * @param bIsEnemyDamage trueë©´ ë‚´ê°€ ì ì„ ë•Œë¦° ê²ƒ(íŒŒë‘), falseë©´ ë‚´ê°€ ë§ì€ ê²ƒ(ë¹¨ê°•)
+		 * @param bIsCritical ì¹˜ëª…íƒ€ ì—¬ë¶€ (ë‚˜ì¤‘ì— í™•ì¥í•  ë•Œ ì‚¬ìš©)
 		 */
 	UFUNCTION(BlueprintCallable, Category = "AFO|UI")
 	void ShowDamage(float Damage, FVector WorldLocation, bool bIsEnemyDamage, bool bIsCritical = false);
 
 protected:
-	// ¿¡µğÅÍ¿¡¼­ ÇÒ´çÇÒ À§Á¬ Å¬·¡½º
+	// ì—ë””í„°ì—ì„œ í• ë‹¹í•  ìœ„ì ¯ í´ë˜ìŠ¤
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AFO|UI")
 	TSubclassOf<UDamageIndicatorWidget> DamageWidgetClass;
 
 private:
-	// ¿ùµå ÁÂÇ¥¸¦ È­¸é ÁÂÇ¥·Î º¯È¯ÇÏ¿© ¶ç¿öÁÖ´Â ³»ºÎ ·ÎÁ÷
+	// ì›”ë“œ ì¢Œí‘œë¥¼ í™”ë©´ ì¢Œí‘œë¡œ ë³€í™˜í•˜ì—¬ ë„ì›Œì£¼ëŠ” ë‚´ë¶€ ë¡œì§
 	void SpawnDamageWidget(float Damage, FVector WorldLocation, FLinearColor Color, bool bIsCritical);
 	
 };

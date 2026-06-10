@@ -1,4 +1,4 @@
-// AFKillLogContainer.h
+ï»¿// AFKillLogContainer.h
 
 #pragma once
 
@@ -12,16 +12,16 @@ class AFO_API UAFKillLogContainer : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
-    // Å³ ·Î±×µéÀÌ ´ã±æ ¼öÁ÷ ¹Ú½º (WBP¿¡¼­ ÀÌ ÀÌ¸§À¸·Î VerticalBox¸¦ ¸¸µé¾î¾ß ÇÔ)
+    // í‚¬ ë¡œê·¸ë“¤ì´ ë‹´ê¸¸ ìˆ˜ì§ ë°•ìŠ¤ (WBPì—ì„œ ì´ ì´ë¦„ìœ¼ë¡œ VerticalBoxë¥¼ ë§Œë“¤ì–´ì•¼ í•¨)
     UPROPERTY(meta = (BindWidget))
     class UVerticalBox* KillLogList;
 
-    // »ı¼ºÇÒ °³º° ·Î±× À§Á¬ Å¬·¡½º (¿¡µğÅÍ¿¡¼­ WBP_KillLogEntry ÇÒ´ç)
+    // ìƒì„±í•  ê°œë³„ ë¡œê·¸ ìœ„ì ¯ í´ë˜ìŠ¤ (ì—ë””í„°ì—ì„œ WBP_KillLogEntry í• ë‹¹)
     UPROPERTY(EditAnywhere, Category = "AFO|UI")
     TSubclassOf<class UAFKillLogEntry> KillLogEntryClass;
 
 public:
-    // »õ·Î¿î Å³ ·Î±×¸¦ Ãß°¡ÇÏ´Â ÇÔ¼ö
+    // ìƒˆë¡œìš´ í‚¬ ë¡œê·¸ë¥¼ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
     void AddKillLog(const FString& Killer, FLinearColor KillerColor, const FString& Victim, FLinearColor VictimColor);
 
 };

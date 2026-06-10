@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameMode.h"
@@ -46,36 +46,36 @@ private:
 
 
 
-	// Ä³¸¯ÅÍ ¼±ÅÃ È­¸é ±¸Çö Àü ÀÓ½Ã Ä³¸¯ÅÍ ¼³Á¤ ÇÔ¼ö
+	// ìºë¦­í„° ì„ íƒ í™”ë©´ êµ¬í˜„ ì „ ì„ì‹œ ìºë¦­í„° ì„¤ì • í•¨ìˆ˜
 
 //protected:
-//	// Ã¹ ¹øÂ° ÇÃ·¹ÀÌ¾î¿ë Ä³¸¯ÅÍ Å¬·¡½º (¿¡µğÅÍ¿¡¼­ ¼³Á¤)
+//	// ì²« ë²ˆì§¸ í”Œë ˆì´ì–´ìš© ìºë¦­í„° í´ë˜ìŠ¤ (ì—ë””í„°ì—ì„œ ì„¤ì •)
 //	UPROPERTY(EditAnywhere, Category = "Classes")
 //	TSubclassOf<APawn> FirstCharacterClass;
 //
-//	// µÎ ¹øÂ° ÇÃ·¹ÀÌ¾î¿ë Ä³¸¯ÅÍ Å¬·¡½º
+//	// ë‘ ë²ˆì§¸ í”Œë ˆì´ì–´ìš© ìºë¦­í„° í´ë˜ìŠ¤
 //	UPROPERTY(EditAnywhere, Category = "Classes")
 //	TSubclassOf<APawn> SecondCharacterClass;
 //
-//	// ¼¼ ¹øÂ° ÇÃ·¹ÀÌ¾î¿ë Ä³¸¯ÅÍ Å¬·¡½º
+//	// ì„¸ ë²ˆì§¸ í”Œë ˆì´ì–´ìš© ìºë¦­í„° í´ë˜ìŠ¤
 //	UPROPERTY(EditAnywhere, Category = "Classes")
 //	TSubclassOf<APawn> ThirdCharacterClass;
 //
-//	// ³× ¹øÂ° ÇÃ·¹ÀÌ¾î¿ë Ä³¸¯ÅÍ Å¬·¡½º
+//	// ë„¤ ë²ˆì§¸ í”Œë ˆì´ì–´ìš© ìºë¦­í„° í´ë˜ìŠ¤
 //	UPROPERTY(EditAnywhere, Category = "Classes")
 //	TSubclassOf<APawn> FourthCharacterClass;
 //
-//	// ÇöÀç Á¢¼ÓÇÑ ÀÎ¿ø¼ö¸¦ Ã¼Å©ÇÏ±â À§ÇÑ º¯¼ö
+//	// í˜„ì¬ ì ‘ì†í•œ ì¸ì›ìˆ˜ë¥¼ ì²´í¬í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 //	int32 PlayerCount = 0;
 
 public:
-	// ÇÃ·¹ÀÌ¾î°¡ ½ºÆùµÉ Å¬·¡½º¸¦ °áÁ¤ÇÏ´Â ¾ğ¸®¾ó ¿£Áø ¿£Áø ÇÔ¼ö ¿À¹ö¶óÀÌµå
+	// í”Œë ˆì´ì–´ê°€ ìŠ¤í°ë  í´ë˜ìŠ¤ë¥¼ ê²°ì •í•˜ëŠ” ì–¸ë¦¬ì–¼ ì—”ì§„ ì—”ì§„ í•¨ìˆ˜ ì˜¤ë²„ë¼ì´ë“œ
 	//virtual UClass* GetDefaultPawnClassForController_Implementation(AController* InController) override;
 
 
 
 
-	// °ÔÀÓ ½ÃÀÛÀ» ¾Ë¸®´Â ÇÔ¼ö
+	// ê²Œì„ ì‹œì‘ì„ ì•Œë¦¬ëŠ” í•¨ìˆ˜
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Battle")
 	int32 StartDelayTime = 5;
 

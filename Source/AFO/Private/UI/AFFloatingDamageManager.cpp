@@ -1,4 +1,4 @@
-// AFFloatingDamagemanager.cpp
+ï»¿// AFFloatingDamagemanager.cpp
 
 
 #include "UI/AFFloatingDamageManager.h"
@@ -15,11 +15,11 @@ AAFFloatingDamageManager::AAFFloatingDamageManager()
 
 void AAFFloatingDamageManager::ShowDamage(float Damage, FVector WorldLocation, bool bIsEnemyDamage, bool bIsCritical)
 {
-    // 1. »ö»ó °áÁ¤ (¿ä±¸»çÇ×: °ø°İ ½Ã ÆÄ¶õ»ö, ÇÇ°İ ½Ã »¡°£»ö)
-    // bIsEnemyDamage°¡ true¶ó´Â °ÍÀº '³»°¡ ÀûÀ» ¸ÂÃè´Ù'´Â ¶æÀ¸·Î °¡Á¤ÇÕ´Ï´Ù.
+    // 1. ìƒ‰ìƒ ê²°ì • (ìš”êµ¬ì‚¬í•­: ê³µê²© ì‹œ íŒŒë€ìƒ‰, í”¼ê²© ì‹œ ë¹¨ê°„ìƒ‰)
+    // bIsEnemyDamageê°€ trueë¼ëŠ” ê²ƒì€ 'ë‚´ê°€ ì ì„ ë§ì·„ë‹¤'ëŠ” ëœ»ìœ¼ë¡œ ê°€ì •í•©ë‹ˆë‹¤.
     FLinearColor DisplayColor = bIsEnemyDamage ? FLinearColor::Blue : FLinearColor::Red;
 
-    // 2. ¸¸¾à Å©¸®Æ¼ÄÃÀÌ¶ó¸é »ö»óÀ» ³ë¶õ»öÀ¸·Î µ¤¾î¾²°Å³ª ³ªÁß¿¡ ·ÎÁ÷ Ãß°¡ °¡´É
+    // 2. ë§Œì•½ í¬ë¦¬í‹°ì»¬ì´ë¼ë©´ ìƒ‰ìƒì„ ë…¸ë€ìƒ‰ìœ¼ë¡œ ë®ì–´ì“°ê±°ë‚˜ ë‚˜ì¤‘ì— ë¡œì§ ì¶”ê°€ ê°€ëŠ¥
     if (bIsCritical)
     {
         // DisplayColor = FLinearColor::Yellow; 
@@ -34,7 +34,7 @@ void AAFFloatingDamageManager::SpawnDamageWidget(float Damage, FVector WorldLoca
     if (!DamageWidgetClass) return;
 
 
-    // ·£´ı ¿ÀÇÁ¼Â °è»ê (ÁÂ¿ì -30~30, À§ 0~20)
+    // ëœë¤ ì˜¤í”„ì…‹ ê³„ì‚° (ì¢Œìš° -30~30, ìœ„ 0~20)
     FVector RandomOffset = FVector(
         FMath::RandRange(-30.f, 30.f),
         FMath::RandRange(-30.f, 30.f),
@@ -43,20 +43,20 @@ void AAFFloatingDamageManager::SpawnDamageWidget(float Damage, FVector WorldLoca
     FVector FinalLocation = WorldLocation + RandomOffset;
 
 
-    // À§Á¬ »ı¼º
+    // ìœ„ì ¯ ìƒì„±
     UDamageIndicatorWidget* NewWidget = CreateWidget<UDamageIndicatorWidget>(GetWorld(), DamageWidgetClass);
     if (NewWidget)
     {
 
         NewWidget->TargetWorldLocation = FinalLocation;
-        // C++¿¡¼­ ¼±¾ğÇÑ ÀÌº¥Æ® È£Ãâ (ºí·çÇÁ¸°Æ®¿¡¼­ °¡½ÃÀûÀÎ Ã³¸®¸¦ ÇÏµµ·Ï ³Ñ±è)
+        // C++ì—ì„œ ì„ ì–¸í•œ ì´ë²¤íŠ¸ í˜¸ì¶œ (ë¸”ë£¨í”„ë¦°íŠ¸ì—ì„œ ê°€ì‹œì ì¸ ì²˜ë¦¬ë¥¼ í•˜ë„ë¡ ë„˜ê¹€)
         NewWidget->ReceiveSetDamageText(Damage, Color);
 
-        // È­¸é¿¡ Ãß°¡
+        // í™”ë©´ì— ì¶”ê°€
         NewWidget->AddToViewport(10);
 
-        // 4. [Áß¿ä] À§Á¬ÀÌ ¿ùµå À§Ä¡¸¦ µû¶ó°¡°Ô ÇÏ·Á¸é 
-        // À§Á¬ ³»ºÎ¿¡¼­ ProjectWorldLocationToWidgetPosition °°Àº ÇÔ¼ö¸¦ ½á¾ß ÇÕ´Ï´Ù.
-        // ÀÌ ºÎºĞÀº ºí·çÇÁ¸°Æ®¿¡¼­ Ã³¸®ÇÏ´Â °ÍÀÌ ÈÎ¾À À¯¿¬ÇÕ´Ï´Ù.
+        // 4. [ì¤‘ìš”] ìœ„ì ¯ì´ ì›”ë“œ ìœ„ì¹˜ë¥¼ ë”°ë¼ê°€ê²Œ í•˜ë ¤ë©´ 
+        // ìœ„ì ¯ ë‚´ë¶€ì—ì„œ ProjectWorldLocationToWidgetPosition ê°™ì€ í•¨ìˆ˜ë¥¼ ì¨ì•¼ í•©ë‹ˆë‹¤.
+        // ì´ ë¶€ë¶„ì€ ë¸”ë£¨í”„ë¦°íŠ¸ì—ì„œ ì²˜ë¦¬í•˜ëŠ” ê²ƒì´ í›¨ì”¬ ìœ ì—°í•©ë‹ˆë‹¤.
     }
 }

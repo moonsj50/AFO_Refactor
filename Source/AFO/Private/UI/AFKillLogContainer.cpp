@@ -1,4 +1,4 @@
-// AFKillLogContainer.cpp
+ï»¿// AFKillLogContainer.cpp
 
 #include "UI/AFKillLogContainer.h"
 #include "UI/AFKillLogEntry.h"
@@ -8,17 +8,17 @@ void UAFKillLogContainer::AddKillLog(const FString& Killer, FLinearColor KillerC
 {
     if (!KillLogEntryClass || !KillLogList) return;
 
-    // 1. °³º° ¿£Æ®¸® À§Á¬ »ı¼º
+    // 1. ê°œë³„ ì—”íŠ¸ë¦¬ ìœ„ì ¯ ìƒì„±
     UAFKillLogEntry* NewEntry = CreateWidget<UAFKillLogEntry>(this, KillLogEntryClass);
     if (NewEntry)
     {
-        // 2. µ¥ÀÌÅÍ ¼¼ÆÃ
+        // 2. ë°ì´í„° ì„¸íŒ…
         NewEntry->SetKillLog(Killer, KillerColor, Victim, VictimColor);
 
-        // 3. ¸®½ºÆ®(VerticalBox)¿¡ Ãß°¡
+        // 3. ë¦¬ìŠ¤íŠ¸(VerticalBox)ì— ì¶”ê°€
         KillLogList->AddChildToVerticalBox(NewEntry);
 
-        // 4. ½Ç¹« ÆÁ: ·Î±×°¡ ³Ê¹« ¸¹¾ÆÁö¸é °¡Àå ¿À·¡µÈ °Í »èÁ¦ (ÃÖ´ë 5°³ À¯Áö)
+        // 4. ì‹¤ë¬´ íŒ: ë¡œê·¸ê°€ ë„ˆë¬´ ë§ì•„ì§€ë©´ ê°€ì¥ ì˜¤ë˜ëœ ê²ƒ ì‚­ì œ (ìµœëŒ€ 5ê°œ ìœ ì§€)
         if (KillLogList->GetChildrenCount() > 5)
         {
             KillLogList->RemoveChildAt(0);

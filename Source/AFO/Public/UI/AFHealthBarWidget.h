@@ -1,4 +1,4 @@
-// AFHealthBarWidget.h
+ï»¿// AFHealthBarWidget.h
 
 #pragma once
 
@@ -13,24 +13,24 @@ class AFO_API UAFHealthBarWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	// À§Á¬ÀÌ »ı¼ºµÉ ¶§ Ä³¸¯ÅÍ¸¦ Àü´Ş¹Ş¾Æ °¨½Ã¸¦ ½ÃÀÛÇÕ´Ï´Ù.
+	// ìœ„ì ¯ì´ ìƒì„±ë  ë•Œ ìºë¦­í„°ë¥¼ ì „ë‹¬ë°›ì•„ ê°ì‹œë¥¼ ì‹œì‘í•©ë‹ˆë‹¤.
 	UFUNCTION(BlueprintCallable, Category = "AFO|UI")
 	void BindToCharacter(AActor* OwningActor);
 
 protected:
-	/** AttributeComponentÀÇ Ã¼·Â º¯°æ ½Ã È£ÃâµÉ Äİ¹é ÇÔ¼ö */
+	/** AttributeComponentì˜ ì²´ë ¥ ë³€ê²½ ì‹œ í˜¸ì¶œë  ì½œë°± í•¨ìˆ˜ */
 	UFUNCTION()
 	void HandleHealthChanged(float CurrentHealth, float MaxHealth, class AAFPlayerState* ChangedPlayer);
 
-	/** ºí·çÇÁ¸°Æ®¿¡¼­ UI¸¦ ¾÷µ¥ÀÌÆ®ÇÏ±â À§ÇÑ ÀÌº¥Æ® */
+	/** ë¸”ë£¨í”„ë¦°íŠ¸ì—ì„œ UIë¥¼ ì—…ë°ì´íŠ¸í•˜ê¸° ìœ„í•œ ì´ë²¤íŠ¸ */
 	UFUNCTION(BlueprintImplementableEvent, Category = "AFO|UI")
 	void OnUpdateHealthVisual(float Percent);
 
-	/** ºí·çÇÁ¸°Æ®¿¡¼­ ÆÀ »ö»óÀ» Àû¿ëÇÏ±â À§ÇÑ ÀÌº¥Æ® */
+	/** ë¸”ë£¨í”„ë¦°íŠ¸ì—ì„œ íŒ€ ìƒ‰ìƒì„ ì ìš©í•˜ê¸° ìœ„í•œ ì´ë²¤íŠ¸ */
 	UFUNCTION(BlueprintImplementableEvent, Category = "AFO|UI")
 	void OnUpdateTeamVisual(FLinearColor TeamColor);
 
-	// ÆÀ Á¤º¸°¡ ¿Ã ¶§±îÁö ¹İº¹ ½ÇÇàµÉ ÇÔ¼ö
+	// íŒ€ ì •ë³´ê°€ ì˜¬ ë•Œê¹Œì§€ ë°˜ë³µ ì‹¤í–‰ë  í•¨ìˆ˜
 	void UpdateInitialState();
 
 	UFUNCTION()

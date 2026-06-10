@@ -1,4 +1,4 @@
-// AFInGameWidget.cpp
+ï»¿// AFInGameWidget.cpp
 
 
 #include "UI/AFInGameWidget.h"
@@ -13,27 +13,27 @@
 
 
 // ====================
-// 1. ÃÊ±âÈ­ ¹× ¹ÙÀÎµù ÁøÀÔÁ¡
+// 1. ì´ˆê¸°í™” ë° ë°”ì¸ë”© ì§„ì…ì 
 // ====================
 
 void UAFInGameWidget::NativeConstruct()
 {
 	UUserWidget::NativeConstruct();
 
-	// 1. Å¸ÀÌ¸Ó ÅØ½ºÆ® ÃÊ±âÈ­
+	// 1. íƒ€ì´ë¨¸ í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
 	if (GameTimer) GameTimer->SetText(FText::FromString("Wait..."));
 
 	AAFGameState* GS = Cast<AAFGameState>(GetWorld()->GetGameState());
 	if (GS)
 	{
-		// 2. Å¸ÀÌ¸Ó µ¨¸®°ÔÀÌÆ® ¿¬°á
+		// 2. íƒ€ì´ë¨¸ ë¸ë¦¬ê²Œì´íŠ¸ ì—°ê²°
 		UpdateGameTimerText(GS->RemainingTimeSeconds);
 		GS->OnTimerChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdateGameTimerText);
 
-		// 3. Á¡¼ö/ÇÃ·¹ÀÌ¾î ¹è¿­ º¯È­ µ¨¸®°ÔÀÌÆ® ¿¬°á (AddUniqueDynamic ÇÊ¼ö)
+		// 3. ì ìˆ˜/í”Œë ˆì´ì–´ ë°°ì—´ ë³€í™” ë¸ë¦¬ê²Œì´íŠ¸ ì—°ê²° (AddUniqueDynamic í•„ìˆ˜)
 		GS->OnPlayerArrayChanged.AddUniqueDynamic(this, &UAFInGameWidget::HandlePlayerArrayChanged);
 
-		// 4. ÃÊ±â ¹ÙÀÎµù ½Ãµµ (ÇÑ ¹ø¸¸ ¼öÇà)
+		// 4. ì´ˆê¸° ë°”ì¸ë”© ì‹œë„ (í•œ ë²ˆë§Œ ìˆ˜í–‰)
 		HandlePlayerArrayChanged();
 	}
 }
@@ -43,8 +43,8 @@ void UAFInGameWidget::HandlePlayerArrayChanged()
 	AGameStateBase* GS = GetWorld()->GetGameState();
 	if (!GS) return;
 
-	// ÇöÀç Á¢¼Ó ÁßÀÎ ¸ğµç ÇÃ·¹ÀÌ¾î¸¦ ´ë»óÀ¸·Î ÃÊ±âÈ­ ½Ãµµ
-	// bTeamUIInitialized Ã¼Å©¸¦ Á¦°ÅÇÏ°í ³»ºÎ¿¡¼­ °³º° ÇÃ·¹ÀÌ¾îº°·Î Ã¼Å©ÇÕ´Ï´Ù.
+	// í˜„ì¬ ì ‘ì† ì¤‘ì¸ ëª¨ë“  í”Œë ˆì´ì–´ë¥¼ ëŒ€ìƒìœ¼ë¡œ ì´ˆê¸°í™” ì‹œë„
+	// bTeamUIInitialized ì²´í¬ë¥¼ ì œê±°í•˜ê³  ë‚´ë¶€ì—ì„œ ê°œë³„ í”Œë ˆì´ì–´ë³„ë¡œ ì²´í¬í•©ë‹ˆë‹¤.
 	InitializeTeamUI(GS->PlayerArray);
 	UpdateTeamKillDeathScore(0, nullptr);
 }
@@ -63,7 +63,7 @@ void UAFInGameWidget::CheckAndInitializeUI()
 		return;
 	}
 
-	// 2v2 °ÔÀÓÀÌ¶ó°í °¡Á¤ÇÏ°í ÃÖ¼Ò 2¸íÀÇ ÇÃ·¹ÀÌ¾î¸¦ ±â´Ù¸³´Ï´Ù.
+	// 2v2 ê²Œì„ì´ë¼ê³  ê°€ì •í•˜ê³  ìµœì†Œ 2ëª…ì˜ í”Œë ˆì´ì–´ë¥¼ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.
 	if (GS->PlayerArray.Num() < 2)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("WAITING FOR ALL PLAYERS: Found %d/%d PlayerStates."), GS->PlayerArray.Num(), 2);
@@ -71,14 +71,14 @@ void UAFInGameWidget::CheckAndInitializeUI()
 	}
 
 	// ==========================================================
-	// ¡Ú¡Ú¡Ú ÇÙ½É ¼öÁ¤: ¸ğµç PlayerStateÀÇ ÆÀ ID°¡ º¹Á¦µÇ¾ú´ÂÁö È®ÀÎ ¡Ú¡Ú¡Ú
+	// â˜…â˜…â˜… í•µì‹¬ ìˆ˜ì •: ëª¨ë“  PlayerStateì˜ íŒ€ IDê°€ ë³µì œë˜ì—ˆëŠ”ì§€ í™•ì¸ â˜…â˜…â˜…
 	// ==========================================================
 	bool bAllPlayerStatesReady = true;
 	for (APlayerState* PS : GS->PlayerArray)
 	{
 		AAFPlayerState* AFPS = Cast<AAFPlayerState>(PS);
-		// TeamID°¡ ÃÊ±â°ª(º¸Åë 0)ÀÌ ¾Æ´Ñ 1 ÀÌ»óÀÌ°Å³ª, AFPS Ä³½ºÆÃ ÀÚÃ¼°¡ ½ÇÆĞÇÏ¸é ÁØºñ ¾È µÊ
-		// È¤Àº TeamID°¡ 0ÀÌ³ª 1 (RED/BLUE)·Î È®½ÇÈ÷ ¼³Á¤µÇ¾ú´ÂÁö È®ÀÎ
+		// TeamIDê°€ ì´ˆê¸°ê°’(ë³´í†µ 0)ì´ ì•„ë‹Œ 1 ì´ìƒì´ê±°ë‚˜, AFPS ìºìŠ¤íŒ… ìì²´ê°€ ì‹¤íŒ¨í•˜ë©´ ì¤€ë¹„ ì•ˆ ë¨
+		// í˜¹ì€ TeamIDê°€ 0ì´ë‚˜ 1 (RED/BLUE)ë¡œ í™•ì‹¤íˆ ì„¤ì •ë˜ì—ˆëŠ”ì§€ í™•ì¸
 		if (!AFPS || (AFPS->GetTeamID() != 0 && AFPS->GetTeamID() != 1))
 		{
 			bAllPlayerStatesReady = false;
@@ -93,16 +93,16 @@ void UAFInGameWidget::CheckAndInitializeUI()
 		return;
 	}
 
-	// ¸ğµç ÇÃ·¹ÀÌ¾î (2¸í)°¡ PlayerArray¿¡ ÀÖ°í, TeamIDµµ º¹Á¦µÇ¾ú´Ù¸é ÃÊ±âÈ­ ½ÇÇà
+	// ëª¨ë“  í”Œë ˆì´ì–´ (2ëª…)ê°€ PlayerArrayì— ìˆê³ , TeamIDë„ ë³µì œë˜ì—ˆë‹¤ë©´ ì´ˆê¸°í™” ì‹¤í–‰
 	InitializeTeamUI(GS->PlayerArray);
 
-	// InitializeTeamUI ³»ºÎ¿¡¼­ bTeamUIInitialized = true °¡ ¼³Á¤µÇ¾î ´ÙÀ½ Æ½¿¡ Å¸ÀÌ¸Ó°¡ ClearµË´Ï´Ù.
+	// InitializeTeamUI ë‚´ë¶€ì—ì„œ bTeamUIInitialized = true ê°€ ì„¤ì •ë˜ì–´ ë‹¤ìŒ í‹±ì— íƒ€ì´ë¨¸ê°€ Clearë©ë‹ˆë‹¤.
 }
 
 void UAFInGameWidget::InitializeTeamUI(TArray<APlayerState*> AllPlayerStates)
 {
-	// ±âÁ¸ÀÇ bTeamUIInitialized Ã¼Å©´Â »èÁ¦ÇÏ°Å³ª, 
-	// ¹æÀÇ ÃÖ´ë ÀÎ¿ø¼ö(¿¹: 4¸í)°¡ ¸ğµÎ Ã¡À» ¶§¸¸ ÀÛµ¿ÇÏµµ·Ï º¯°æÇØ¾ß ÇÕ´Ï´Ù.
+	// ê¸°ì¡´ì˜ bTeamUIInitialized ì²´í¬ëŠ” ì‚­ì œí•˜ê±°ë‚˜, 
+	// ë°©ì˜ ìµœëŒ€ ì¸ì›ìˆ˜(ì˜ˆ: 4ëª…)ê°€ ëª¨ë‘ ì°¼ì„ ë•Œë§Œ ì‘ë™í•˜ë„ë¡ ë³€ê²½í•´ì•¼ í•©ë‹ˆë‹¤.
 	// if (bTeamUIInitialized) return; 
 
 	APlayerController* LocalPC = GetOwningPlayer();
@@ -115,7 +115,7 @@ void UAFInGameWidget::InitializeTeamUI(TArray<APlayerState*> AllPlayerStates)
 		AAFPlayerState* AFPS = Cast<AAFPlayerState>(PS);
 		if (!AFPS) continue;
 
-		// ¡Ú ÇÙ½É ¼öÁ¤: ÀÌ¹Ì ¹ÙÀÎµùÀ» ¿Ï·áÇÑ ÇÃ·¹ÀÌ¾î´Â ´Ù½Ã Ã³¸®ÇÏÁö ¾ÊÀ½ (Áßº¹ ¹ÙÀÎµù ¹æÁö)
+		// â˜… í•µì‹¬ ìˆ˜ì •: ì´ë¯¸ ë°”ì¸ë”©ì„ ì™„ë£Œí•œ í”Œë ˆì´ì–´ëŠ” ë‹¤ì‹œ ì²˜ë¦¬í•˜ì§€ ì•ŠìŒ (ì¤‘ë³µ ë°”ì¸ë”© ë°©ì§€)
 		if (BoundPlayerStates.Contains(AFPS))
 		{
 			continue;
@@ -124,11 +124,11 @@ void UAFInGameWidget::InitializeTeamUI(TArray<APlayerState*> AllPlayerStates)
 		UE_LOG(LogTemp, Warning, TEXT("[%s] New Player Detected! Binding: %s (Team %d)"),
 			*InstanceName, *AFPS->GetPlayerName(), AFPS->GetTeamID());
 
-		// TeamPlayerStates Map ¾÷µ¥ÀÌÆ® (AddUnique »ç¿ëÀ¸·Î Áßº¹ ¹æÁö)
+		// TeamPlayerStates Map ì—…ë°ì´íŠ¸ (AddUnique ì‚¬ìš©ìœ¼ë¡œ ì¤‘ë³µ ë°©ì§€)
 		TeamPlayerStates.FindOrAdd(AFPS->GetTeamID()).AddUnique(AFPS);
 
 		// ==============
-		// 1. ÀÌ¸§ ¼³Á¤
+		// 1. ì´ë¦„ ì„¤ì •
 		// ==============
 		FText PlayerNameText = FText::FromString(AFPS->GetPlayerName());
 		if (AFPS->GetTeamID() == 0) // RED
@@ -143,10 +143,10 @@ void UAFInGameWidget::InitializeTeamUI(TArray<APlayerState*> AllPlayerStates)
 		}
 
 		// ==============
-		// 2. µ¨¸®°ÔÀÌÆ® ¹ÙÀÎµù (·ÎÄÃ/½ºÄÚ¾îº¸µå/ÆÀ½ºÄÚ¾î)
+		// 2. ë¸ë¦¬ê²Œì´íŠ¸ ë°”ì¸ë”© (ë¡œì»¬/ìŠ¤ì½”ì–´ë³´ë“œ/íŒ€ìŠ¤ì½”ì–´)
 		// ==============
 
-		// A. ·ÎÄÃ Àü¿ë (HUD)
+		// A. ë¡œì»¬ ì „ìš© (HUD)
 		if (AFPS->GetOwner() == LocalPC)
 		{
 			AFPS->OnHealthChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdateMyHealthBar);
@@ -155,30 +155,30 @@ void UAFInGameWidget::InitializeTeamUI(TArray<APlayerState*> AllPlayerStates)
 			UpdateMyManaBar(AFPS->GetCurrentMana(), AFPS->GetMaxMana(), AFPS);
 		}
 
-		// B. ½ºÄÚ¾îº¸µå °³º° ¹ÙÀÎµù
+		// B. ìŠ¤ì½”ì–´ë³´ë“œ ê°œë³„ ë°”ì¸ë”©
 		AFPS->OnHealthChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdatePlayerHealthBar);
 		AFPS->OnManaChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdatePlayerManaBar);
 		AFPS->OnKillCountChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdatePlayerKillCount);
 		AFPS->OnDeathCountChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdatePlayerDeathCount);
 
-		// C. ÆÀ ÃÑÇÕ ½ºÄÚ¾î ¹ÙÀÎµù
+		// C. íŒ€ ì´í•© ìŠ¤ì½”ì–´ ë°”ì¸ë”©
 		// AFPS->OnKillCountChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdateTeamKillDeathScore);
 		// AFPS->OnDeathCountChanged.AddUniqueDynamic(this, &UAFInGameWidget::UpdateTeamKillDeathScore);
 
-		// ÃÊ±â°ª Áï½Ã ¹İ¿µ
+		// ì´ˆê¸°ê°’ ì¦‰ì‹œ ë°˜ì˜
 		UpdatePlayerHealthBar(AFPS->GetCurrentHealth(), AFPS->GetMaxHealth(), AFPS);
 		UpdatePlayerManaBar(AFPS->GetCurrentMana(), AFPS->GetMaxMana(), AFPS);
 		UpdatePlayerKillCount(AFPS->GetKillCount(), AFPS);
 		UpdatePlayerDeathCount(AFPS->GetDeathCount(), AFPS);
 
-		// ¡Ú ¹ÙÀÎµù ¿Ï·á ¸ñ·Ï¿¡ Ãß°¡
+		// â˜… ë°”ì¸ë”© ì™„ë£Œ ëª©ë¡ì— ì¶”ê°€
 		BoundPlayerStates.Add(AFPS);
 	}
 
-	// ÆÀ Á¡¼ö ÃÖÁ¾ °»½Å
+	// íŒ€ ì ìˆ˜ ìµœì¢… ê°±ì‹ 
 	UpdateTeamKillDeathScore(0, nullptr);
 
-	// ÃÖ´ë ÀÎ¿øÀÌ ´Ù Ã¡À» ¶§¸¸ ÃÊ±âÈ­ ¿Ï·á ÇÃ·¡±× ¼³Á¤ (¿¹: 4¸í ±âÁØ)
+	// ìµœëŒ€ ì¸ì›ì´ ë‹¤ ì°¼ì„ ë•Œë§Œ ì´ˆê¸°í™” ì™„ë£Œ í”Œë˜ê·¸ ì„¤ì • (ì˜ˆ: 4ëª… ê¸°ì¤€)
 	if (BoundPlayerStates.Num() >= 4)
 	{
 		bTeamUIInitialized = true;
@@ -186,7 +186,7 @@ void UAFInGameWidget::InitializeTeamUI(TArray<APlayerState*> AllPlayerStates)
 	}
 }
 
-// ÆÀ ½ºÄÚ¾îº¸µå ÇÚµé·¯
+// íŒ€ ìŠ¤ì½”ì–´ë³´ë“œ í•¸ë“¤ëŸ¬
 void UAFInGameWidget::UpdatePlayerHealthBar(float CurrentHealth, float MaxHealth, AAFPlayerState* TargetPS)
 {
 	if (!TargetPS || MaxHealth <= 0.f) return;
@@ -194,18 +194,18 @@ void UAFInGameWidget::UpdatePlayerHealthBar(float CurrentHealth, float MaxHealth
 
 	UProgressBar* TargetHPBar = nullptr;
 
-	if (TargetPS->GetTeamID() == 0) // RED ÆÀ
+	if (TargetPS->GetTeamID() == 0) // RED íŒ€
 	{
 		TargetHPBar = (TargetPS->GetTeamIndex() == 1) ? RedPlayer1HP : RedPlayer2HP;
 
-		// ¡Ú¡Ú¡Ú RED ÆÀ Æ÷ÀÎÅÍ À¯È¿¼º È®ÀÎ ·Î±× ¡Ú¡Ú¡Ú
+		// â˜…â˜…â˜… RED íŒ€ í¬ì¸í„° ìœ íš¨ì„± í™•ì¸ ë¡œê·¸ â˜…â˜…â˜…
 		if (!TargetHPBar)
 		{
-			// ÀÌ ·Î±×°¡ Æ¯Á¤ Å¬¶óÀÌ¾ğÆ®¿¡¼­¸¸ Ãâ·ÂµÇ¸é UMG ·±Å¸ÀÓ ¹ÙÀÎµù ½ÇÆĞ È®Á¤
+			// ì´ ë¡œê·¸ê°€ íŠ¹ì • í´ë¼ì´ì–¸íŠ¸ì—ì„œë§Œ ì¶œë ¥ë˜ë©´ UMG ëŸ°íƒ€ì„ ë°”ì¸ë”© ì‹¤íŒ¨ í™•ì •
 			UE_LOG(LogTemp, Error, TEXT("FATAL_UMG_BINDING: Red HP Bar (Index %d) is NULL on client %s!"), TargetPS->GetTeamIndex(), *GetOwningPlayer()->GetName());
 		}
 	}
-	else // BLUE ÆÀ
+	else // BLUE íŒ€
 	{
 		TargetHPBar = (TargetPS->GetTeamIndex() == 1) ? BluePlayer1HP : BluePlayer2HP;
 	}
@@ -213,12 +213,12 @@ void UAFInGameWidget::UpdatePlayerHealthBar(float CurrentHealth, float MaxHealth
 	if (TargetHPBar)
 	{
 		TargetHPBar->SetPercent(Percent);
-		// ¡Ú¡Ú¡Ú ¾÷µ¥ÀÌÆ® ¼º°ø ·Î±× ¡Ú¡Ú¡Ú
+		// â˜…â˜…â˜… ì—…ë°ì´íŠ¸ ì„±ê³µ ë¡œê·¸ â˜…â˜…â˜…
 		UE_LOG(LogTemp, Warning, TEXT("SCOREBOARD UPDATE SUCCESS: Team %d Index %d HP %.2f"), TargetPS->GetTeamID(), TargetPS->GetTeamIndex(), CurrentHealth);
 	}
 	else
 	{
-		// ¡Ú¡Ú¡Ú ¾÷µ¥ÀÌÆ® ½ÇÆĞ (UMG Æ÷ÀÎÅÍ ¹®Á¦) ·Î±× ¡Ú¡Ú¡Ú
+		// â˜…â˜…â˜… ì—…ë°ì´íŠ¸ ì‹¤íŒ¨ (UMG í¬ì¸í„° ë¬¸ì œ) ë¡œê·¸ â˜…â˜…â˜…
 		UE_LOG(LogTemp, Warning, TEXT("SCOREBOARD UPDATE FAILED: Team %d Index %d. TargetHPBar is NULL."), TargetPS->GetTeamID(), TargetPS->GetTeamIndex());
 	}
 }
@@ -230,11 +230,11 @@ void UAFInGameWidget::UpdatePlayerManaBar(float CurrentMana, float MaxMana, AAFP
 
 	UProgressBar* TargetMPBar = nullptr;
 
-	if (TargetPS->GetTeamID() == 0) // RED ÆÀ
+	if (TargetPS->GetTeamID() == 0) // RED íŒ€
 	{
 		TargetMPBar = (TargetPS->GetTeamIndex() == 1) ? RedPlayer1MP : RedPlayer2MP;
 	}
-	else // BLUE ÆÀ
+	else // BLUE íŒ€
 	{
 		TargetMPBar = (TargetPS->GetTeamIndex() == 1) ? BluePlayer1MP : BluePlayer2MP;
 	}
@@ -251,12 +251,12 @@ void UAFInGameWidget::UpdatePlayerKillCount(int32 NewKillCount, AAFPlayerState* 
 
 	FText NewKillText = FText::AsNumber(NewKillCount);
 
-	if (TargetPS->GetTeamID() == 0) // RED ÆÀ
+	if (TargetPS->GetTeamID() == 0) // RED íŒ€
 	{
 		if (TargetPS->GetTeamIndex() == 1 && RedPlayer1Kill) RedPlayer1Kill->SetText(NewKillText);
 		if (TargetPS->GetTeamIndex() == 2 && RedPlayer2Kill) RedPlayer2Kill->SetText(NewKillText);
 	}
-	else // BLUE ÆÀ
+	else // BLUE íŒ€
 	{
 		if (TargetPS->GetTeamIndex() == 1 && BluePlayer1Kill) BluePlayer1Kill->SetText(NewKillText);
 		if (TargetPS->GetTeamIndex() == 2 && BluePlayer2Kill) BluePlayer2Kill->SetText(NewKillText);
@@ -269,25 +269,25 @@ void UAFInGameWidget::UpdatePlayerDeathCount(int32 NewDeathCount, AAFPlayerState
 
 	FText NewDeathText = FText::AsNumber(NewDeathCount);
 
-	if (TargetPS->GetTeamID() == 0) // RED ÆÀ
+	if (TargetPS->GetTeamID() == 0) // RED íŒ€
 	{
 		if (TargetPS->GetTeamIndex() == 1 && RedPlayer1Death) RedPlayer1Death->SetText(NewDeathText);
 		if (TargetPS->GetTeamIndex() == 2 && RedPlayer2Death) RedPlayer2Death->SetText(NewDeathText);
 	}
-	else // BLUE ÆÀ
+	else // BLUE íŒ€
 	{
 		if (TargetPS->GetTeamIndex() == 1 && BluePlayer1Death) BluePlayer1Death->SetText(NewDeathText);
 		if (TargetPS->GetTeamIndex() == 2 && BluePlayer2Death) BluePlayer2Death->SetText(NewDeathText);
 	}
 }
 
-// ÆÀ ÃÑÇÕ ½ºÄÚ¾î °»½Å ÇÚµé·¯
+// íŒ€ ì´í•© ìŠ¤ì½”ì–´ ê°±ì‹  í•¸ë“¤ëŸ¬
 void UAFInGameWidget::UpdateTeamKillDeathScore(int32 NewValue, AAFPlayerState* TargetPS)
 {
 	AAFGameState* GS = Cast<AAFGameState>(GetWorld()->GetGameState());
 	if (!GS) return;
 
-	// ¡Ú Å¬¶óÀÌ¾ğÆ® ·Î±×: ÇöÀç ³» È­¸éÀÇ ÀÌ¸§°ú ¼­¹ö¿¡¼­ ¹ŞÀº ½ÇÁ¦ Á¡¼ö¸¦ Ãâ·Â
+	// â˜… í´ë¼ì´ì–¸íŠ¸ ë¡œê·¸: í˜„ì¬ ë‚´ í™”ë©´ì˜ ì´ë¦„ê³¼ ì„œë²„ì—ì„œ ë°›ì€ ì‹¤ì œ ì ìˆ˜ë¥¼ ì¶œë ¥
 	FString ClientName = GetOwningPlayer() ? GetOwningPlayer()->GetName() : TEXT("Unknown");
 
 	UE_LOG(LogTemp, Log, TEXT("[CLIENT:%s] Updating UI Scoreboard - Real Server Values: R_Kill=%d, B_Kill=%d"),
@@ -299,17 +299,17 @@ void UAFInGameWidget::UpdateTeamKillDeathScore(int32 NewValue, AAFPlayerState* T
 	if (BlueDeathScore) BlueDeathScore->SetText(FText::AsNumber(GS->TeamBlueDeathScore));
 }
 
-// ÀÚ½Å Àü¿ë µ¨¸®°ÔÀÌÆ® ÇÚµé·¯
+// ìì‹  ì „ìš© ë¸ë¦¬ê²Œì´íŠ¸ í•¸ë“¤ëŸ¬
 void UAFInGameWidget::UpdateMyHealthBar(float NewHealth, float MaxHealth, AAFPlayerState* TargetPS)
 {
-	// 1. ProgressBar (PlayerHP) ¾÷µ¥ÀÌÆ®
+	// 1. ProgressBar (PlayerHP) ì—…ë°ì´íŠ¸
 	if (PlayerHP)
 	{
 		float HealthPercent = MaxHealth > 0.f ? (NewHealth / MaxHealth) : 0.f;
 		PlayerHP->SetPercent(HealthPercent);
 	}
 
-	// 2. TextBlock (Text_PlayerHP) ¾÷µ¥ÀÌÆ®
+	// 2. TextBlock (Text_PlayerHP) ì—…ë°ì´íŠ¸
 	if (Text_PlayerHP)
 	{
 		FText HealthText = FText::Format(
@@ -325,14 +325,14 @@ void UAFInGameWidget::UpdateMyHealthBar(float NewHealth, float MaxHealth, AAFPla
 
 void UAFInGameWidget::UpdateMyManaBar(float NewMana, float MaxMana, AAFPlayerState* TargetPS)
 {
-	// 1. ProgressBar (PlayerMP) ¾÷µ¥ÀÌÆ®
+	// 1. ProgressBar (PlayerMP) ì—…ë°ì´íŠ¸
 	if (PlayerMP)
 	{
 		float ManaPercent = MaxMana > 0.f ? (NewMana / MaxMana) : 0.f;
 		PlayerMP->SetPercent(ManaPercent);
 	}
 
-	// 2. TextBlock (Text_PlayerMP) ¾÷µ¥ÀÌÆ®
+	// 2. TextBlock (Text_PlayerMP) ì—…ë°ì´íŠ¸
 	if (Text_PlayerMP)
 	{
 		FText ManaText = FText::Format(
@@ -346,19 +346,19 @@ void UAFInGameWidget::UpdateMyManaBar(float NewMana, float MaxMana, AAFPlayerSta
 	UE_LOG(LogTemp, Log, TEXT("Local UI Mana Updated: %.2f / %.2f"), NewMana, MaxMana);
 }
 
-// Å¸ÀÌ¸Ó µ¨¸®°ÔÀÌÆ® ÇÚµé·¯
+// íƒ€ì´ë¨¸ ë¸ë¦¬ê²Œì´íŠ¸ í•¸ë“¤ëŸ¬
 void UAFInGameWidget::UpdateGameTimerText(int32 NewTime)
 {
 	if (!IsValid(GameTimer)) return;
 
-	// "MM:SS" Æ÷¸ËÀ¸·Î º¯È¯
+	// "MM:SS" í¬ë§·ìœ¼ë¡œ ë³€í™˜
 	int32 Minutes = NewTime / 60;
 	int32 Seconds = NewTime % 60;
 
 	FString TimeString = FString::Printf(TEXT("%02d:%02d"), Minutes, Seconds);
 	GameTimer->SetText(FText::FromString(TimeString));
 
-	// 30ÃÊ ¹Ì¸¸ÀÏ ¶§ »¡°£»öÀ¸·Î º¯°æÇÏ´Â ¿¬Ãâ
+	// 30ì´ˆ ë¯¸ë§Œì¼ ë•Œ ë¹¨ê°„ìƒ‰ìœ¼ë¡œ ë³€ê²½í•˜ëŠ” ì—°ì¶œ
 	if (NewTime <= 30)
 	{
 		GameTimer->SetColorAndOpacity(FSlateColor(FLinearColor::Red));
@@ -381,7 +381,7 @@ void UAFInGameWidget::ShowGameResult()
 	AAFPlayerState* MyPS = PC ? PC->GetPlayerState<AAFPlayerState>() : nullptr;
 	if (!MyPS) return;
 
-	// ¡Ú¡Ú¡Ú ÇÙ½É ¼öÁ¤: GameStateÀÇ º¹Á¦µÈ Á¡¼ö¸¦ Á÷Á¢ ÂüÁ¶ ¡Ú¡Ú¡Ú
+	// â˜…â˜…â˜… í•µì‹¬ ìˆ˜ì •: GameStateì˜ ë³µì œëœ ì ìˆ˜ë¥¼ ì§ì ‘ ì°¸ì¡° â˜…â˜…â˜…
 	int32 FinalRedKills = GS->TeamRedKillScore;
 	int32 FinalBlueKills = GS->TeamBlueKillScore;
 
@@ -394,7 +394,7 @@ void UAFInGameWidget::ShowGameResult()
 		else bIWin = (MyPS->GetTeamID() == 1);
 	}
 
-	// 3. À§Á¬ »ı¼º ¹× Ãâ·Â
+	// 3. ìœ„ì ¯ ìƒì„± ë° ì¶œë ¥
 	TSubclassOf<UUserWidget> ResultClass = nullptr;
 
 	if (bIsDraw)
@@ -420,56 +420,56 @@ void UAFInGameWidget::ShowGameResult()
 
 
 
-// PlayerState¸¦ Ã£¾ÒÀ» ¶§ µ¨¸®°ÔÀÌÆ®¸¦ ¹ÙÀÎµùÇÏ´Â ÃÖÁ¾ ÇÔ¼ö
+// PlayerStateë¥¼ ì°¾ì•˜ì„ ë•Œ ë¸ë¦¬ê²Œì´íŠ¸ë¥¼ ë°”ì¸ë”©í•˜ëŠ” ìµœì¢… í•¨ìˆ˜
 void UAFInGameWidget::BindToPlayerState(AAFPlayerState* PS)
 {
-	// Å¸ÀÌ¸Ó°¡ ÀÛµ¿ ÁßÀÌ¶ó¸é ÁßÁö
+	// íƒ€ì´ë¨¸ê°€ ì‘ë™ ì¤‘ì´ë¼ë©´ ì¤‘ì§€
 	if (PlayerStateCheckTimerHandle.IsValid())
 	{
 		GetWorld()->GetTimerManager().ClearTimer(PlayerStateCheckTimerHandle);
 		UE_LOG(LogTemp, Warning, TEXT("!!! PlayerState Timer Cleared !!!"));
 	}
 
-	// ±âÁ¸ µ¨¸®°ÔÀÌÆ® ÇØÁ¦ 
+	// ê¸°ì¡´ ë¸ë¦¬ê²Œì´íŠ¸ í•´ì œ 
 	PS->OnHealthChanged.RemoveDynamic(this, &UAFInGameWidget::UpdateMyHealthBar);
 	PS->OnManaChanged.RemoveDynamic(this, &UAFInGameWidget::UpdateMyManaBar);
 
-	// 1. µ¨¸®°ÔÀÌÆ®¿¡ C++ ÇÔ¼ö ¹ÙÀÎµù (ÀÚ½Å Àü¿ë ÇÚµé·¯)
+	// 1. ë¸ë¦¬ê²Œì´íŠ¸ì— C++ í•¨ìˆ˜ ë°”ì¸ë”© (ìì‹  ì „ìš© í•¸ë“¤ëŸ¬)
 	PS->OnHealthChanged.AddDynamic(this, &UAFInGameWidget::UpdateMyHealthBar);
 	PS->OnManaChanged.AddDynamic(this, &UAFInGameWidget::UpdateMyManaBar);
 
-	// 2. ÃÊ±â °ª ¼³Á¤ (TargetPS ÀÎÀÚ Ãß°¡)
+	// 2. ì´ˆê¸° ê°’ ì„¤ì • (TargetPS ì¸ì ì¶”ê°€)
 	UpdateMyHealthBar(PS->GetCurrentHealth(), PS->GetMaxHealth(), PS);
 	UpdateMyManaBar(PS->GetCurrentMana(), PS->GetMaxMana(), PS);
 
 	UE_LOG(LogTemp, Warning, TEXT("!!! Local HUD SUCCESSFULLY Bound & Initialized via Timer !!!"));
 
-	// 3. ¸ğµç ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ¹ÙÀÎµùÇÏ±â À§ÇØ InitializeTeamUI È£Ãâ
+	// 3. ëª¨ë“  í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë°”ì¸ë”©í•˜ê¸° ìœ„í•´ InitializeTeamUI í˜¸ì¶œ
 	if (AGameStateBase* GS = GetWorld()->GetGameState())
 	{
 		InitializeTeamUI(GS->PlayerArray);
 	}
 }
 
-// Å¸ÀÌ¸Ó°¡ È£ÃâÇÏ´Â ¹İº¹ Ã¼Å© ÇÔ¼ö
+// íƒ€ì´ë¨¸ê°€ í˜¸ì¶œí•˜ëŠ” ë°˜ë³µ ì²´í¬ í•¨ìˆ˜
 void UAFInGameWidget::CheckAndBindPlayerState()
 {
 	APlayerController* PC = GetOwningPlayer();
 	if (!PC)
 	{
-		// À§Á¬ ¼ÒÀ¯ ÄÁÆ®·Ñ·¯°¡ »ç¶óÁ³´Ù¸é Å¸ÀÌ¸Ó ÁßÁö
+		// ìœ„ì ¯ ì†Œìœ  ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ì‚¬ë¼ì¡Œë‹¤ë©´ íƒ€ì´ë¨¸ ì¤‘ì§€
 		GetWorld()->GetTimerManager().ClearTimer(PlayerStateCheckTimerHandle);
 		return;
 	}
 
 	if (AAFPlayerState* PS = PC->GetPlayerState<AAFPlayerState>())
 	{
-		// PlayerState¸¦ Ã£À¸¸é ¹ÙÀÎµù ÇÔ¼ö È£Ãâ
+		// PlayerStateë¥¼ ì°¾ìœ¼ë©´ ë°”ì¸ë”© í•¨ìˆ˜ í˜¸ì¶œ
 		BindToPlayerState(PS);
 	}
 	else
 	{
-		// ¾ÆÁ÷ ¸ø Ã£¾ÒÀ¸¸é ´ÙÀ½ ÁÖ±â±îÁö ±â´Ù¸³´Ï´Ù.
+		// ì•„ì§ ëª» ì°¾ì•˜ìœ¼ë©´ ë‹¤ìŒ ì£¼ê¸°ê¹Œì§€ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.
 		// UE_LOG(LogTemp, Log, TEXT("Waiting for PlayerState..."));
 	}
 }

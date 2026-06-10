@@ -1,4 +1,4 @@
-// AFSkillComponent.cpp
+ï»¿// AFSkillComponent.cpp
 
 
 #include "Components/AFSkillComponent.h"
@@ -14,17 +14,17 @@ UAFSkillComponent::UAFSkillComponent()
 void UAFSkillComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    // CooldownDataArray¸¦ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÕ´Ï´Ù.
+    // CooldownDataArrayë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•©ë‹ˆë‹¤.
     DOREPLIFETIME(UAFSkillComponent, CooldownDataArray);
 }
 bool UAFSkillComponent::CanUseSkill(FName SkillRowName) const
 {
-    // ¼­¹ö/Å¬¶óÀÌ¾ðÆ® ¸ðµÎ¿¡¼­ CooldownDataArray¸¦ ÅëÇØ È®ÀÎ °¡´ÉÇÏµµ·Ï ¼öÁ¤
+    // ì„œë²„/í´ë¼ì´ì–¸íŠ¸ ëª¨ë‘ì—ì„œ CooldownDataArrayë¥¼ í†µí•´ í™•ì¸ ê°€ëŠ¥í•˜ë„ë¡ ìˆ˜ì •
     for (const auto& Info : CooldownDataArray)
     {
         if (Info.SkillRowName == SkillRowName)
         {
-            // Á¾·á ½Ã°£ÀÌ ÇöÀç ½Ã°£º¸´Ù µÚ¿¡ ÀÖ´Ù¸é ¾ÆÁ÷ ÄðÅ¸ÀÓ Áß
+            // ì¢…ë£Œ ì‹œê°„ì´ í˜„ìž¬ ì‹œê°„ë³´ë‹¤ ë’¤ì— ìžˆë‹¤ë©´ ì•„ì§ ì¿¨íƒ€ìž„ ì¤‘
             return GetWorld()->GetTimeSeconds() >= Info.ServerEndTime;
         }
     }
@@ -33,10 +33,10 @@ bool UAFSkillComponent::CanUseSkill(FName SkillRowName) const
 
 void UAFSkillComponent::StartCooldown(FName SkillRowName, float CooldownTime)
 {
-    // ¼­¹ö°¡ ¾Æ´Ï¸é ½ÇÇà ±ÝÁö
+    // ì„œë²„ê°€ ì•„ë‹ˆë©´ ì‹¤í–‰ ê¸ˆì§€
     if (!GetOwner()->HasAuthority()) return;
 
-    // ¼­¹öÀÇ ÇöÀç ½Ã°£ ±âÁØ Á¾·á ½ÃÁ¡ °è»ê
+    // ì„œë²„ì˜ í˜„ìž¬ ì‹œê°„ ê¸°ì¤€ ì¢…ë£Œ ì‹œì  ê³„ì‚°
     float EndTime = GetWorld()->GetTimeSeconds() + CooldownTime;
 
     int32 FoundIdx = INDEX_NONE;
@@ -63,8 +63,8 @@ void UAFSkillComponent::StartCooldown(FName SkillRowName, float CooldownTime)
         CooldownDataArray.Add(NewInfo);
     }
 
-    // [Âü°í] ¼­¹ö Àü¿ë Å¸ÀÌ¸Ó°¡ ÇÊ¿äÇÏ´Ù¸é ¿©±â¼­ OnCooldownFinished¸¦ È£ÃâÇÏµµ·Ï ¼ÂÆÃ
-    // ÇÏÁö¸¸ UI µ¿±âÈ­´Â CooldownDataArray ¸®ÇÃ¸®ÄÉÀÌ¼Ç¸¸À¸·Îµµ ÃæºÐÇÕ´Ï´Ù.
+    // [ì°¸ê³ ] ì„œë²„ ì „ìš© íƒ€ì´ë¨¸ê°€ í•„ìš”í•˜ë‹¤ë©´ ì—¬ê¸°ì„œ OnCooldownFinishedë¥¼ í˜¸ì¶œí•˜ë„ë¡ ì…‹íŒ…
+    // í•˜ì§€ë§Œ UI ë™ê¸°í™”ëŠ” CooldownDataArray ë¦¬í”Œë¦¬ì¼€ì´ì…˜ë§Œìœ¼ë¡œë„ ì¶©ë¶„í•©ë‹ˆë‹¤.
 
     UE_LOG(LogTemp, Warning, TEXT("@@@ [Server] Cooldown Sync Started: %s (Time: %.1fs)"), *SkillRowName.ToString(), CooldownTime);
 }
@@ -89,7 +89,7 @@ float UAFSkillComponent::GetRemainingTime(FName SkillRowName) const
     {
         if (Info.SkillRowName == SkillRowName)
         {
-            // Å¬¶óÀÌ¾ðÆ®¿¡¼­µµ ÇöÀç ¼­¹ö µ¿±âÈ­ ½Ã°£À» ±âÁØÀ¸·Î °è»ê °¡´É
+            // í´ë¼ì´ì–¸íŠ¸ì—ì„œë„ í˜„ìž¬ ì„œë²„ ë™ê¸°í™” ì‹œê°„ì„ ê¸°ì¤€ìœ¼ë¡œ ê³„ì‚° ê°€ëŠ¥
             float Remaining = Info.ServerEndTime - GetWorld()->GetTimeSeconds();
             return FMath::Max(Remaining, 0.f);
         }

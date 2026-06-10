@@ -1,4 +1,4 @@
-#include "Controller/AFLobbyPlayerController.h"
+ï»¿#include "Controller/AFLobbyPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
 #include "Game/AFTeamSelectGameMode.h"
@@ -208,7 +208,7 @@ void AAFLobbyPlayerController::ServerRequestSetTeam_Implementation(uint8 NewTeam
 
 	if (!GM->RequestSetTeam(this, NewTeamId))
 	{
-		ClientShowMessage(TEXT("ÆÀ´ç ÃÖ´ë 2¸í¸¸ °¡´ÉÇÕ´Ï´Ù."));
+		ClientShowMessage(TEXT("íŒ€ë‹¹ ìµœëŒ€ 2ëª…ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤."));
 	}
 }
 
@@ -218,7 +218,7 @@ void AAFLobbyPlayerController::ServerRequestAdvanceToCharacterSelect_Implementat
 	{
 		if (!GM->AdvanceToCharacterSelect())
 		{
-			ClientShowMessage(TEXT("Á¶°Ç ¹Ì´Ş: 2¸í Á¢¼Ó + RED1/BLUE1°¡ µÇ¾î¾ß ÇÕ´Ï´Ù."));
+			ClientShowMessage(TEXT("ì¡°ê±´ ë¯¸ë‹¬: 2ëª… ì ‘ì† + RED1/BLUE1ê°€ ë˜ì–´ì•¼ í•©ë‹ˆë‹¤."));
 		}
 	}
 }
@@ -229,7 +229,7 @@ void AAFLobbyPlayerController::ServerRequestSelectCharacter_Implementation(uint8
 	{
 		if (!GM->RequestSelectCharacter(this, CharacterId))
 		{
-			ClientShowMessage(TEXT("°°Àº ÆÀ ³» Ä³¸¯ÅÍ Áßº¹Àº ºÒ°¡ÇÕ´Ï´Ù."));
+			ClientShowMessage(TEXT("ê°™ì€ íŒ€ ë‚´ ìºë¦­í„° ì¤‘ë³µì€ ë¶ˆê°€í•©ë‹ˆë‹¤."));
 		}
 	}
 }
@@ -240,7 +240,7 @@ void AAFLobbyPlayerController::ServerRequestSetReady_Implementation(bool bNewRea
 	{
 		if (!GM->RequestSetReady(this, bNewReady))
 		{
-			ClientShowMessage(TEXT("Ä³¸¯ÅÍ ¼±ÅÃ ÈÄ¿¡¸¸ Ready ÇÒ ¼ö ÀÖ½À´Ï´Ù."));
+			ClientShowMessage(TEXT("ìºë¦­í„° ì„ íƒ í›„ì—ë§Œ Ready í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤."));
 		}
 	}
 }

@@ -1,4 +1,4 @@
-    // AFSkillComponent.h
+ï»¿    // AFSkillComponent.h
 
     #pragma once
 
@@ -19,7 +19,7 @@
         FName SkillRowName = NAME_None;
 
         UPROPERTY()
-        float ServerEndTime = 0.f; // (¼­¹ö ½Ã°£ ±âÁØ) ÄğÅ¸ÀÓÀÌ ³¡³¯ ½Ã°¢
+        float ServerEndTime = 0.f; // (ì„œë²„ ì‹œê°„ ê¸°ì¤€) ì¿¨íƒ€ì„ì´ ëë‚  ì‹œê°
 
         UPROPERTY()
         float MaxCooldown = 0.f;
@@ -39,33 +39,33 @@
         UPROPERTY(BlueprintAssignable, Category = "Events")
         FOnCooldownStarted OnCooldownStarted;
 
-        /** ½ºÅ³ »ç¿ë °¡´É ¿©ºÎ È®ÀÎ (¼­¹ö/Å¬¶óÀÌ¾ğÆ® °ø¿ë) */
+        /** ìŠ¤í‚¬ ì‚¬ìš© ê°€ëŠ¥ ì—¬ë¶€ í™•ì¸ (ì„œë²„/í´ë¼ì´ì–¸íŠ¸ ê³µìš©) */
         UFUNCTION(BlueprintCallable, Category = "AF|Skill")
         bool CanUseSkill(FName SkillRowName) const;
 
-        /** ÄğÅ¸ÀÓ ½ÃÀÛ (¹İµå½Ã ¼­¹ö¿¡¼­ È£Ãâ) */
+        /** ì¿¨íƒ€ì„ ì‹œì‘ (ë°˜ë“œì‹œ ì„œë²„ì—ì„œ í˜¸ì¶œ) */
         void StartCooldown(FName SkillRowName, float CooldownTime);
 
         virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-        /** UI¿ë: ³²Àº ÄğÅ¸ÀÓ ºñÀ² (1.0 -> 0.0) */
+        /** UIìš©: ë‚¨ì€ ì¿¨íƒ€ì„ ë¹„ìœ¨ (1.0 -> 0.0) */
         UFUNCTION(BlueprintCallable, Category = "AF|Skill")
         float GetCooldownRemainingRatio(FName SkillRowName) const;
 
-        /** UI¿ë: ³²Àº ½Ã°£ (ÃÊ ´ÜÀ§) */
+        /** UIìš©: ë‚¨ì€ ì‹œê°„ (ì´ˆ ë‹¨ìœ„) */
         UFUNCTION(BlueprintCallable, Category = "AF|Skill")
         float GetRemainingTime(FName SkillRowName) const;
 
     protected:
-        // ½ºÅ³º° Å¸ÀÌ¸Ó ÇÚµé (ÄğÅ¸ÀÓ ÁßÀÎÁö È®ÀÎ¿ë)
+        // ìŠ¤í‚¬ë³„ íƒ€ì´ë¨¸ í•¸ë“¤ (ì¿¨íƒ€ì„ ì¤‘ì¸ì§€ í™•ì¸ìš©)
         UPROPERTY()
         TMap<FName, FTimerHandle> SkillTimerMap;
 
-        // ½ºÅ³º° ÃÖ´ë ÄğÅ¸ÀÓ ÀúÀå (ºñÀ² °è»ê¿ë)
+        // ìŠ¤í‚¬ë³„ ìµœëŒ€ ì¿¨íƒ€ì„ ì €ì¥ (ë¹„ìœ¨ ê³„ì‚°ìš©)
         UPROPERTY()
         TMap<FName, float> SkillMaxCooldownMap;
 
-        /** ÄğÅ¸ÀÓ Á¾·á ½Ã È£ÃâµÉ Äİ¹é */
+        /** ì¿¨íƒ€ì„ ì¢…ë£Œ ì‹œ í˜¸ì¶œë  ì½œë°± */
         void OnCooldownFinished(FName SkillRowName);
 
         UPROPERTY(Replicated)

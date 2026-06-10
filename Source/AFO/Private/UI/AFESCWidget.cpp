@@ -1,4 +1,4 @@
-#include "UI/AFESCWidget.h"
+ï»¿#include "UI/AFESCWidget.h"
 #include "Components/Button.h"
 #include "Kismet/KismetSystemLibrary.h" 
 #include "Kismet/GameplayStatics.h" 
@@ -8,14 +8,14 @@ void UAFESCWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	// ¹öÆ° ÀÌº¥Æ® ¹ÙÀÎµù ½Ã À¯È¿¼º °Ë»ç ÇÊ¼ö
+	// ë²„íŠ¼ ì´ë²¤íŠ¸ ë°”ì¸ë”© ì‹œ ìœ íš¨ì„± ê²€ì‚¬ í•„ìˆ˜
 	if (IsValid(Button_Resume))
 	{
 		Button_Resume->OnClicked.AddDynamic(this, &UAFESCWidget::OnResumeClicked);
 	}
 	if (IsValid(Button_Option))
 	{
-		// ¿É¼Ç ¹öÆ°Àº ÇöÀç ±â´É ¾øÀ½
+		// ì˜µì…˜ ë²„íŠ¼ì€ í˜„ì¬ ê¸°ëŠ¥ ì—†ìŒ
 		Button_Option->OnClicked.AddDynamic(this, &UAFESCWidget::OnOptionClicked);
 	}
 	if (IsValid(Button_Exit))
@@ -33,7 +33,7 @@ void UAFESCWidget::CloseESCMenu()
 {
 	if (AAFPlayerController* AFPC = Cast<AAFPlayerController>(GetOwningPlayer()))
 	{
-		// ¸Ş´º°¡ ¿­·ÁÀÖÀ» ¶§¸¸ ´İ±â ·ÎÁ÷À» ¼öÇàÇÕ´Ï´Ù.
+		// ë©”ë‰´ê°€ ì—´ë ¤ìˆì„ ë•Œë§Œ ë‹«ê¸° ë¡œì§ì„ ìˆ˜í–‰í•©ë‹ˆë‹¤.
 		if (AFPC->bIsESCMenuOpen)
 		{
 			AFPC->ToggleESCMenu();
@@ -41,26 +41,26 @@ void UAFESCWidget::CloseESCMenu()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AAFPlayerController¸¦ °¡Á®¿Ã ¼ö ¾ø¾î ESC ¸Ş´º¸¦ ´İÀ» ¼ö ¾ø½À´Ï´Ù."));
+		UE_LOG(LogTemp, Warning, TEXT("AAFPlayerControllerë¥¼ ê°€ì ¸ì˜¬ ìˆ˜ ì—†ì–´ ESC ë©”ë‰´ë¥¼ ë‹«ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 	}
 }
 
 void UAFESCWidget::OnOptionClicked()
 {
-	// ÇöÀç ±â´É ¾øÀ½.
-	UE_LOG(LogTemp, Log, TEXT("Option ¹öÆ° Å¬¸¯: ±â´É ±¸Çö ¿¹Á¤"));
+	// í˜„ì¬ ê¸°ëŠ¥ ì—†ìŒ.
+	UE_LOG(LogTemp, Log, TEXT("Option ë²„íŠ¼ í´ë¦­: ê¸°ëŠ¥ êµ¬í˜„ ì˜ˆì •"));
 }
 
 void UAFESCWidget::OnExitClicked()
 {
-	// ¼­¹ö ¿¬°á ÇØÁ¦ ¹× Å¸ÀÌÆ² È­¸éÀ¸·Î º¹±Í
+	// ì„œë²„ ì—°ê²° í•´ì œ ë° íƒ€ì´í‹€ í™”ë©´ìœ¼ë¡œ ë³µê·€
 	if (APlayerController* PC = GetOwningPlayer())
 	{
 		PC->ClientTravel("/Game/01_ArenaFighter/01_Levels/TitleMenu", ETravelType::TRAVEL_Absolute);
 
 	}
 
-	// °ÔÀÓÀ» ¿ÏÀüÈ÷ Á¾·á
+	// ê²Œì„ì„ ì™„ì „íˆ ì¢…ë£Œ
 	// UKismetSystemLibrary::QuitGame(GetWorld(), GetOwningPlayer(), EQuitPreference::Quit, false);
 }
 

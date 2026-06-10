@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
@@ -38,14 +38,14 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Scoreboard")
 	TSubclassOf<UAFScoreboardRowWidget> RowWidgetClass;
 
-	// === Wrapper ScrollBox (µğÀÚÀÌ³Ê ±¸Á¶ À¯Áö¿ë) : ¾È ½áµµ µÇÁö¸¸ ÀÖ¾îµµ µÊ ===
+	// === Wrapper ScrollBox (ë””ìì´ë„ˆ êµ¬ì¡° ìœ ì§€ìš©) : ì•ˆ ì¨ë„ ë˜ì§€ë§Œ ìˆì–´ë„ ë¨ ===
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UScrollBox> SB_Red;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UScrollBox> SB_Blue;
 
-	// === ½ÇÁ¦·Î Row°¡ µé¾î°¥ °÷ (Top/Bottom) ===
+	// === ì‹¤ì œë¡œ Rowê°€ ë“¤ì–´ê°ˆ ê³³ (Top/Bottom) ===
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UScrollBox> SB_RedTop;
 

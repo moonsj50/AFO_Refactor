@@ -1,4 +1,4 @@
-// AFSkillSlotWidget.cpp
+ï»¿// AFSkillSlotWidget.cpp
 
 
 #include "UI/AFSkillSlotWidget.h"
@@ -11,7 +11,7 @@
 UAFSkillSlotWidget::UAFSkillSlotWidget(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
-    // C++ À§Á¬¿¡¼­ TickÀ» È°¼ºÈ­ÇÏ±â À§ÇÑ ÇÊ¼ö ¼³Á¤
+    // C++ ìœ„ì ¯ì—ì„œ Tickì„ í™œì„±í™”í•˜ê¸° ìœ„í•œ í•„ìˆ˜ ì„¤ì •
    // bHasScriptImplementedTick = true;
 }
 
@@ -20,12 +20,12 @@ void UAFSkillSlotWidget::SetSkillSlotInfo(FAFSkillInfo NewSkillInfo, FName InRow
     MySkillData = NewSkillInfo;
     MyRowName = InRowName;
 
-    // [ÇÙ½É Ãß°¡] ¾ÆÀÌÄÜ ÀÌ¹ÌÁö¸¦ À§Á¬¿¡ ¼ÂÆÃ (ÀÌ ÄÚµå°¡ ¾ø¾î¼­ ¾È º¸¿´´ø °ÍÀÓ)
+    // [í•µì‹¬ ì¶”ê°€] ì•„ì´ì½˜ ì´ë¯¸ì§€ë¥¼ ìœ„ì ¯ì— ì…‹íŒ… (ì´ ì½”ë“œê°€ ì—†ì–´ì„œ ì•ˆ ë³´ì˜€ë˜ ê²ƒìž„)
     if (SkillIcon)
     {
         if (MySkillData.SkillIcon)
         {
-            // TObjectPtrÀº Get()À» ÅëÇØ ÀÏ¹Ý Æ÷ÀÎÅÍ·Î º¯È¯ÇÏ°Å³ª Á÷Á¢ ´ëÀÔ °¡´ÉÇÕ´Ï´Ù.
+            // TObjectPtrì€ Get()ì„ í†µí•´ ì¼ë°˜ í¬ì¸í„°ë¡œ ë³€í™˜í•˜ê±°ë‚˜ ì§ì ‘ ëŒ€ìž… ê°€ëŠ¥í•©ë‹ˆë‹¤.
             SkillIcon->SetBrushFromTexture(MySkillData.SkillIcon);
             SkillIcon->SetVisibility(ESlateVisibility::Visible);
 
@@ -33,7 +33,7 @@ void UAFSkillSlotWidget::SetSkillSlotInfo(FAFSkillInfo NewSkillInfo, FName InRow
         }
     }
 
-    // ÄðÅ¸ÀÓ Å¸ÀÌ¸Ó ½ÃÀÛ
+    // ì¿¨íƒ€ìž„ íƒ€ì´ë¨¸ ì‹œìž‘
     if (GetWorld())
     {
         GetWorld()->GetTimerManager().ClearTimer(CooldownUpdateTimerHandle);
@@ -53,7 +53,7 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
 
-    // 1. ÄÄÆ÷³ÍÆ® À¯È¿¼º °Ë»ç ¹× ÀÚ°¡ Ä¡À¯
+    // 1. ì»´í¬ë„ŒíŠ¸ ìœ íš¨ì„± ê²€ì‚¬ ë° ìžê°€ ì¹˜ìœ 
     if (!MySkillComponent)
     {
         APawn* OwningPawn = GetOwningPlayerPawn();
@@ -67,16 +67,16 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
         }
     }
 
-    // 2. ÇÙ½É ·ÎÁ÷ ºÐ±âÁ¡ ·Î±×
+    // 2. í•µì‹¬ ë¡œì§ ë¶„ê¸°ì  ë¡œê·¸
     if (MySkillComponent && !MyRowName.IsNone())
     {
         float RemainingRatio = MySkillComponent->GetCooldownRemainingRatio(MyRowName);
         float RemainingTime = MySkillComponent->GetRemainingTime(MyRowName);
 
-        // [Áß¿ä µð¹ö±×] RemainingRatio°¡ 0º¸´Ù Å¬ ¶§¸¸ ·Î±×¸¦ Âï¾î ½ÇÁ¦ ¿¬»ê È®ÀÎ
+        // [ì¤‘ìš” ë””ë²„ê·¸] RemainingRatioê°€ 0ë³´ë‹¤ í´ ë•Œë§Œ ë¡œê·¸ë¥¼ ì°ì–´ ì‹¤ì œ ì—°ì‚° í™•ì¸
         if (RemainingRatio > 0.001f)
         {
-            // 2ÃÊ¸¶´Ù ÇöÀç ¿¬»ê »óÅÂ Ãâ·Â (·Î±× µµ¹è ¹æÁö)
+            // 2ì´ˆë§ˆë‹¤ í˜„ìž¬ ì—°ì‚° ìƒíƒœ ì¶œë ¥ (ë¡œê·¸ ë„ë°° ë°©ì§€)
             static float CooldownLogTimer = 0.f;
             CooldownLogTimer += InDeltaTime;
             if (CooldownLogTimer >= 2.0f)
@@ -86,7 +86,7 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
                 CooldownLogTimer = 0.f;
             }
 
-            // 3. ProgressBar ¾÷µ¥ÀÌÆ® ·Î±×
+            // 3. ProgressBar ì—…ë°ì´íŠ¸ ë¡œê·¸
             if (CooldownBar)
             {
                 CooldownBar->SetPercent(RemainingRatio);
@@ -94,7 +94,7 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
             }
             else
             {
-                // ¹ÙÀÎµù ¾ÈµÊ
+                // ë°”ì¸ë”© ì•ˆë¨
                 static float ErrorLogTimer = 0.f;
                 ErrorLogTimer += InDeltaTime;
                 if (ErrorLogTimer >= 5.0f)
@@ -104,7 +104,7 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
                 }
             }
 
-            // 4. ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+            // 4. í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
             if (CooldownText)
             {
                 CooldownText->SetVisibility(ESlateVisibility::HitTestInvisible);
@@ -113,14 +113,14 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
         }
         else
         {
-            // ÄðÅ¸ÀÓÀÌ 0ÀÏ ¶§ UI Á¤¸®
+            // ì¿¨íƒ€ìž„ì´ 0ì¼ ë•Œ UI ì •ë¦¬
             if (CooldownBar) CooldownBar->SetVisibility(ESlateVisibility::Hidden);
             if (CooldownText) CooldownText->SetVisibility(ESlateVisibility::Hidden);
         }
     }
     else
     {
-        // ¿Ö ÄðÅ¸ÀÓ °è»ê¿¡ ÁøÀÔÇÏÁö ¸øÇÏ´ÂÁö ÀÌÀ¯ Ãâ·Â
+        // ì™œ ì¿¨íƒ€ìž„ ê³„ì‚°ì— ì§„ìž…í•˜ì§€ ëª»í•˜ëŠ”ì§€ ì´ìœ  ì¶œë ¥
         static float FailLogTimer = 0.f;
         FailLogTimer += InDeltaTime;
         if (FailLogTimer >= 3.0f)
@@ -135,13 +135,13 @@ void UAFSkillSlotWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 
 void UAFSkillSlotWidget::StartUIUpdate()
 {
-    // 0.03ÃÊ¸¶´Ù(¾à 30fps) UI¸¦ °»½ÅÇÏ´Â Å¸ÀÌ¸Ó ½ÃÀÛ
+    // 0.03ì´ˆë§ˆë‹¤(ì•½ 30fps) UIë¥¼ ê°±ì‹ í•˜ëŠ” íƒ€ì´ë¨¸ ì‹œìž‘
     GetWorld()->GetTimerManager().SetTimer(CooldownUpdateTimerHandle, this, &UAFSkillSlotWidget::UpdateCooldownVisual, 0.03f, true);
 }
 
 void UAFSkillSlotWidget::UpdateCooldownVisual()
 {
-    // MySkillComponent°¡ À¯È¿ÇÑÁö È®ÀÎ (Valid Ã¼Å©´Â ½Ã´Ï¾îÀÇ ±âº»)
+    // MySkillComponentê°€ ìœ íš¨í•œì§€ í™•ì¸ (Valid ì²´í¬ëŠ” ì‹œë‹ˆì–´ì˜ ê¸°ë³¸)
     if (!IsValid(MySkillComponent)) return;
 
     float Ratio = MySkillComponent->GetCooldownRemainingRatio(MyRowName);
@@ -149,7 +149,7 @@ void UAFSkillSlotWidget::UpdateCooldownVisual()
 
     if (CooldownBar)
     {
-        // ÄðÅ¸ÀÓÀÌ ÀÖÀ» ¶§¸¸ º¸ÀÌ°Ô Ã³¸®
+        // ì¿¨íƒ€ìž„ì´ ìžˆì„ ë•Œë§Œ ë³´ì´ê²Œ ì²˜ë¦¬
         CooldownBar->SetPercent(Ratio);
         CooldownBar->SetVisibility(Ratio > 0.f ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
     }

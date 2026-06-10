@@ -1,4 +1,4 @@
-// AFSkillMainWidget.cpp
+ï»¿// AFSkillMainWidget.cpp
 
 #pragma once
 
@@ -16,7 +16,7 @@ class AFO_API UAFSkillMainWidget : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
-    // 1. À§Á¬ ¹ÙÀÎµù: 
+    // 1. ìœ„ì ¯ ë°”ì¸ë”©: 
     UPROPERTY(meta = (BindWidget))
     class UAFSkillSlotWidget* Slot_0;
 
@@ -32,15 +32,15 @@ protected:
     UPROPERTY(meta = (BindWidget))
     class UAFSkillSlotWidget* Slot_4;
 
-    // ½½·ÔµéÀ» ·çÇÁ·Î µ¹¸®±â À§ÇØ °ü¸®ÇÏ´Â ¹è¿­
+    // ìŠ¬ë¡¯ë“¤ì„ ë£¨í”„ë¡œ ëŒë¦¬ê¸° ìœ„í•´ ê´€ë¦¬í•˜ëŠ” ë°°ì—´
     UPROPERTY()
     TArray<class UAFSkillSlotWidget*> SlotArray;
 
 public:
-    // À§Á¬ÀÌ ÃÊ±âÈ­µÉ ¶§ È£ÃâµÇ´Â ÇÔ¼ö (BPÀÇ Construct¿Í À¯»ç)
+    // ìœ„ì ¯ì´ ì´ˆê¸°í™”ë  ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜ (BPì˜ Constructì™€ ìœ ì‚¬)
     virtual void NativeConstruct() override;
 
-    // Ä³¸¯ÅÍ·ÎºÎÅÍ ½ºÅ³ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ UI¸¦ °»½ÅÇÏ´Â ÇÔ¼ö
+    // ìºë¦­í„°ë¡œë¶€í„° ìŠ¤í‚¬ ë°ì´í„°ë¥¼ ë°›ì•„ UIë¥¼ ê°±ì‹ í•˜ëŠ” í•¨ìˆ˜
     UFUNCTION(BlueprintCallable, Category = "AFO|UI")
     void UpdateSkillSlots(const TArray<FAFSkillInfo>& CharacterSkills, const TArray<FName>& SkillRowNames);
 

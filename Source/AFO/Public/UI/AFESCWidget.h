@@ -1,4 +1,4 @@
-// AFESCWidget.h
+ï»¿// AFESCWidget.h
 
 #pragma once
 
@@ -25,18 +25,18 @@ protected:
 
 	virtual void NativeConstruct() override;
 
-	// --- ¹öÆ° Å¬¸¯ ÀÌº¥Æ® ÇÚµé·¯ ---
+	// --- ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ---
 	UFUNCTION()
 	void OnResumeClicked();
 
 	UFUNCTION()
-	void OnOptionClicked(); // (ÇöÀç ±â´É ¾øÀ½)
+	void OnOptionClicked(); // (í˜„ì¬ ê¸°ëŠ¥ ì—†ìŒ)
 
 	UFUNCTION()
 	void OnExitClicked();
 
 public:
-	// ESC Ã¢À» ´İ´Â ¿ÜºÎ È£Ãâ ÇÔ¼ö (ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯¿¡¼­ »ç¿ë)
+	// ESC ì°½ì„ ë‹«ëŠ” ì™¸ë¶€ í˜¸ì¶œ í•¨ìˆ˜ (í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì‚¬ìš©)
 	UFUNCTION(BlueprintCallable, Category = "AFO|UI")
 	void CloseESCMenu();
 };

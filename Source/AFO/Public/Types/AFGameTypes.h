@@ -1,4 +1,4 @@
-// AFGameTypes.h
+ï»¿// AFGameTypes.h
 
 #pragma once
 #include "CoreMinimal.h"
@@ -20,7 +20,7 @@ struct FAFSkillInfo : public FTableRowBase
 {
     GENERATED_BODY()
 
-    // --- ±âº» Á¤º¸ ---
+    // --- ê¸°ë³¸ ì •ë³´ ---
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill | Basic")
     FText SkillName;
 
@@ -30,7 +30,7 @@ struct FAFSkillInfo : public FTableRowBase
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill | Basic")
     TObjectPtr<UTexture2D> SkillIcon;
 
-    // --- ÀüÅõ ¼öÄ¡ ---
+    // --- ì „íˆ¬ ìˆ˜ì¹˜ ---
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill | Stats")
     float Damage;
 
@@ -38,7 +38,7 @@ struct FAFSkillInfo : public FTableRowBase
     float ManaCost;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill | Stats")
-    float SkillRange; // °ø°İ ¹üÀ§
+    float SkillRange; // ê³µê²© ë²”ìœ„
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill | Stats")
     float Cooldown;
@@ -54,18 +54,18 @@ struct FAFPlayerCharacterStatRow : public FTableRowBase
 public:
     FAFPlayerCharacterStatRow() : Maxhp(100.f), Attack(10.f), MoveSpeed(600.f) {}
 
-    // --- »ıÁ¸ °ü·Ã ---
+    // --- ìƒì¡´ ê´€ë ¨ ---
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stat | Vitality")
     float Maxhp;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stat | Vitality")
     float Maxmana;
 
-    // --- ÀüÅõ °ü·Ã ---
+    // --- ì „íˆ¬ ê´€ë ¨ ---
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stat | Combat")
     float Attack;
 
-    // --- ±âµ¿¼º °ü·Ã ---
+    // --- ê¸°ë™ì„± ê´€ë ¨ ---
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stat | Mobility")
     float MoveSpeed;
 
