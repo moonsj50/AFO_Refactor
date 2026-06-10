@@ -137,11 +137,6 @@ void AAFPlayerCharacter::BeginPlay()
 		InitializeCharacterData(CharacterKey.ToString());
 	}
 
-	if (!CharacterKey.IsNone())
-	{
-		InitializeCharacterData(CharacterKey.ToString());
-	}
-
 	// 생성 시점에 이 캐릭터의 고유 속도를 저장
 	if (GetCharacterMovement())
 	{

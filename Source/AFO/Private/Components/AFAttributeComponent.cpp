@@ -232,9 +232,9 @@ void UAFAttributeComponent::Multicast_NotifyDamage_Implementation(float Damage, 
 		if (InstigatorPS)
 		{
 			// [팀 비교 로직]
-			if (MyPS->GetTeamID() == InstigatorPS->GetTeamID())
+			if (MyPS->GetTeamID() != InstigatorPS->GetTeamID())
 			{
-				bIsEnemyDamage = true; // 우리 팀의 공격 성공!
+				bIsEnemyDamage = true; // 적 팀의 공격을 받음
 			}
 		}
 		else

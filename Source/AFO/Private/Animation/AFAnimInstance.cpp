@@ -67,6 +67,8 @@ void UAFAnimInstance::AnimNotify_AttackHit()
 	{
 		if (auto Character = Cast<AAFPlayerCharacter>(Owner))
 		{
+			if (!Character->HasAuthority()) return;
+
 			Character->DealDamage();
 		}
 	}
